@@ -1,0 +1,156 @@
+.container {
+  margin-top: 3%;
+  width: 70%; }
+
+label, h6 {
+  color: #565D61; }
+
+input[type="submit"], input[type="button"] {
+  background-color: #FFA028;
+  border: #FFA028;
+  color: #fff;
+  text-shadow: none;
+  padding: 10px 20px;
+  border-radius: 5px; }
+
+input[type="text"], input[type="number"], select {
+  height: 40px !important; }
+
+body {
+  background-color: #EEEFF1; }
+
+.form-control {
+  width: 70%; }
+
+.form-content {
+  margin: auto;
+  margin-top: 40px; }
+
+.form-content .row {
+  margin-bottom: 35px; }
+
+.form-content h3 {
+  padding: 10px;
+  text-align: center;
+  margin: auto;
+  color: #565D61;
+  padding: 26px;
+  margin-bottom: 30px; }
+
+.submitButton {
+  margin: 0 auto;
+  text-align: center; }
+
+.action-form {
+  margin: auto;
+  width: 80%; }
+
+.logo-banner {
+  height: 80px;
+  background-color: #46B3C8;
+  -webkit-box-shadow: 0px 2px 22px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 2px 22px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 22px -10px rgba(0, 0, 0, 0.75); }
+
+input.text-button {
+  background-color: #fff;
+  color: #565D61;
+  height: auto;
+  padding-left: 15px;
+  outline: none; }
+
+.logo-name {
+  width: 60%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 1.5% 0px;
+  font-family: Impact, Charcoal, sans-serif;
+  font-size: 30px;
+  color: #F7F9FA;
+  letter-spacing: 2.5px; }
+
+.margin-top-20 {
+  margin-top: 20px; }
+
+.home-images {
+  width: 60%;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 80px; }
+
+.nav-options a {
+  display: block;
+  text-decoration-line: none;
+  margin: 0 auto; }
+
+.nav-options img {
+  width: 65%;
+  padding: 15px;
+  margin: auto 15%;
+  display: block;
+  border-radius: 5em; }
+
+.nav-options h6 {
+  color: #9E9FA1;
+  font-size: 12px;
+  text-align: center; }
+
+.logo-section-img img {
+  width: 41%;
+  display: inline-block;
+  padding: 14px; }
+
+.user-section img {
+  float: left; }
+
+.user-section div {
+  float: right;
+  width: 59%;
+  font-size: 12px;
+  line-height: 4px;
+  padding: 27px 4px 9px 2px;
+  color: #F7F9FA; }
+
+.user-section a {
+  text-decoration: underline !important;
+  margin-right: 5%;
+  cursor: pointer; }
+
+input.matchNo {
+  float: left;
+  margin-right: 6%;
+  height: 29px !important;
+  width: 35px;
+  border-radius: 0px; }
+
+.form-check-label {
+  font-size: 12px; }
+
+.form-check-label > input[type="checkbox"] {
+  margin-right: 0; }
+
+.form-check-inline {
+  width: 9%; }
+
+textarea.team-details {
+  height: 200px;
+  border-radius: 0px;
+  width: 100%; }
+
+.team-details-section .row {
+  margin-left: 4%; }
+
+.newmatch-section, .newmatch-section form, .access-control, .data-action-section {
+  width: 100%; }
+
+.access-control table td, .access-control table th, .data-action-section table td, .data-action-section table th {
+  border: 1px solid #939393 !important;
+  color: #565D61; }
+
+.access-control input.submitButton, .data-action-section input.submitButton {
+  margin: 0 10px;
+  text-align: center;
+  padding: 3px 15px;
+  font-size: 12px;
+  float: right;
+  border-radius: 3px; }

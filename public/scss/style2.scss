@@ -1,0 +1,201 @@
+$font-stack:    Arial, Helvetica, sans-serif;
+$primary-background-color: #EEEFF1;
+$header-color: #46B3C8;
+$font-color-light: #9E9FA1;
+$logo-font: Impact, Charcoal, sans-serif;
+$logo-color: #F7F9FA;
+$option-font: 12px;
+$form-layout: 70%;
+$form-text-color: #565D61;
+$table-border: #939393;
+
+
+        .container {
+            margin-top: 3%;
+            width: 70%
+        }
+
+        label, h6 {
+            color: $form-text-color;
+        }
+
+        input[type="submit"], input[type="button"] {
+            background-color: #FFA028;
+            border: #FFA028;
+            color: #fff;
+            text-shadow: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        input[type="text"],input[type="number"], select {
+            height: 40px !important;
+        }
+
+        body {
+            background-color: $primary-background-color;
+        }
+
+        .form-control {
+            width: $form-layout;
+        }
+
+        .form-content {
+            margin: auto;
+            margin-top: 40px;
+        }
+
+        .form-content .row {
+            margin-bottom: 35px;
+        }
+
+        .form-content h3 {
+            padding: 10px;
+            text-align: center;
+            margin: auto;
+            color: $form-text-color;
+            padding: 26px;
+            margin-bottom: 30px;
+        }
+
+        .submitButton {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .action-form {
+            margin: auto;
+            width: 80%;
+        }
+
+        .logo-banner {
+            height: 80px;
+            background-color: $header-color;
+            -webkit-box-shadow: 0px 2px 22px -10px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 2px 22px -10px rgba(0,0,0,0.75);
+            box-shadow: 0px 2px 22px -10px rgba(0,0,0,0.75);     
+        }
+
+        input.text-button {
+            background-color: #fff;
+            color: $form-text-color;
+            height: auto;
+            padding-left: 15px;
+            outline: none;
+        }
+
+        .logo-name {
+            width: 60%;
+            text-align: center;
+            margin: 0 auto;
+            padding: 1.5% 0px;
+            font-family: $logo-font;
+            font-size: 30px;
+            color: $logo-color;
+            letter-spacing: 2.5px;
+        }
+
+        .margin-top-20 {
+            margin-top: 20px;
+        }
+
+        .home-images {
+            width: 60%;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 80px;
+        }
+
+        .nav-options a {
+            display: block;
+            text-decoration-line: none;
+            margin: 0 auto;
+        }
+
+        .nav-options img {
+            width: 65%;
+            padding: 15px;
+            margin: auto 15%;
+            display: block;
+            border-radius: 5em;
+        }
+
+        .nav-options h6 {
+            color: $font-color-light;
+            font-size: $option-font;
+            text-align: center;
+        }
+
+        .logo-section-img img{
+            width: 41%;
+            display: inline-block;
+            padding: 14px;
+        }
+
+        .user-section img {
+            float: left;
+        }
+
+        .user-section div {
+            float: right;
+            width: 59%;
+            font-size: $option-font;
+            line-height: 4px;
+            padding: 27px 4px 9px 2px;
+            color: $logo-color;
+        }
+
+        .user-section a {
+            text-decoration: underline !important;
+            margin-right: 5%;
+            cursor: pointer;
+        }
+
+        input.matchNo {
+            float: left;
+            margin-right: 6%;
+            height: 29px !important;
+            width: 35px;
+            border-radius: 0px;
+
+        }
+
+        .form-check-label {
+            font-size: $option-font;
+        }
+
+        .form-check-label > input[type="checkbox"]{
+            margin-right: 0;
+        }
+
+        .form-check-inline {
+            width: 9%;
+        }
+
+        textarea.team-details {
+            height: 200px;
+            border-radius: 0px;
+            width: 100%;
+        }
+
+        .team-details-section .row {
+            margin-left: 4%;
+        }
+
+        .newmatch-section, .newmatch-section form, .access-control, .data-action-section {
+            width: 100%;
+        }
+
+        .access-control table td, .access-control table th, .data-action-section table td, .data-action-section table th{
+            border: 1px solid $table-border !important;
+            color: $form-text-color;
+        }
+
+        .access-control input.submitButton, .data-action-section input.submitButton {
+            margin: 0 10px;
+            text-align: center;
+            padding: 3px 15px;
+            font-size: $option-font;
+            float: right;
+            border-radius: 3px;
+        }
