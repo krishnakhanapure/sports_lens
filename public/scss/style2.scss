@@ -132,6 +132,12 @@ $table-border: #939393;
             padding: 14px;
         }
 
+        div.logo-section-img > a > img {
+          width: 80%;
+          display: inline-block;
+          padding: 14px; 
+        }
+
         .user-section img {
             float: left;
         }
@@ -176,6 +182,7 @@ $table-border: #939393;
             height: 200px;
             border-radius: 0px;
             width: 100%;
+            font-size: $option-font;
         }
 
         .team-details-section .row {
@@ -198,4 +205,19 @@ $table-border: #939393;
             font-size: $option-font;
             float: right;
             border-radius: 3px;
+        }
+
+        .team-names {
+            height: 150px;
+        }
+
+        table.player-list thead th{
+            border: none;
+        }
+
+        table.player-list td, table.player-list th {
+            border-bottom: 1px solid #dee2e6;
+            border-top: none;
+            padding: .1rem;
+            font-size: $option-font;
         }

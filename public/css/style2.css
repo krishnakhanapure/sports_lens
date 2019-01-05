@@ -100,6 +100,11 @@ input.text-button {
   display: inline-block;
   padding: 14px; }
 
+div.logo-section-img > a > img {
+  width: 80%;
+  display: inline-block;
+  padding: 14px; }
+
 .user-section img {
   float: left; }
 
@@ -135,7 +140,8 @@ input.matchNo {
 textarea.team-details {
   height: 200px;
   border-radius: 0px;
-  width: 100%; }
+  width: 100%;
+  font-size: 12px; }
 
 .team-details-section .row {
   margin-left: 4%; }
@@ -154,3 +160,15 @@ textarea.team-details {
   font-size: 12px;
   float: right;
   border-radius: 3px; }
+
+.team-names {
+  height: 150px; }
+
+table.player-list thead th {
+  border: none; }
+
+table.player-list td, table.player-list th {
+  border-bottom: 1px solid #dee2e6;
+  border-top: none;
+  padding: .1rem;
+  font-size: 12px; }
