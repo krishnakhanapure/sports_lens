@@ -19,7 +19,7 @@
           <a href="/homePage"><img src="/images/001-shutter-name.png"/></a>
         </div>
         <div class="col-lg-8 col-md-7 col-sm-3 col-xs-3">
-          <p class="logo-name">Sports Lens</p>
+          <p class="logo-name"></p>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 logo-section-img user-section">
           <img src="/images/002-user.svg"/>
@@ -32,7 +32,7 @@
 
 <div class="container">
     <div class="row">
-         <form class="form-horizontal action-form" action="" method="" enctype="multipart/form-data">
+         <form class="form-horizontal action-form newplayer" action="" method="" enctype="multipart/form-data">
 
             <fieldset class="form-content">
                 <!-- Address form -->
@@ -40,20 +40,25 @@
                 <h3>New Player Registration</h3>
 
                 <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's First Name:</label>
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Name:</label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
                         <input required name="" type="text" placeholder="Player's First Name"
+                        class="input-xlarge form-control" />
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        <input name="" type="text" placeholder="Player's Last Name"
                         class="input-xlarge form-control" />
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Last Name:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <input required name="" type="text" placeholder="Player's Last Name"
                         class="input-xlarge form-control" />
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Batting Style:</label>
@@ -116,13 +121,17 @@
                 </div>
 
                 <div class="row">
-                    <input class="submitButton" type="submit" name="" id="" value="Submit">
+                    <input class="submitButton" type="submit" name="" id="" value="Submit" />
                 </div>
 
             </fieldset>
         </form>
     </div>
 </div>
+
+<footer class="footer-section">
+    <p>Copyright © 2018 SportsLens</p>
+</footer>
 
 </body>
 </html>

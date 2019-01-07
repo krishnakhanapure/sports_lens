@@ -40,6 +40,10 @@ $table-border: #939393;
             width: $form-layout;
         }
 
+        .newplayer .form-control {
+            width: 100%;
+        }
+
         .form-content {
             margin: auto;
             margin-top: 40px;
@@ -220,4 +224,16 @@ $table-border: #939393;
             border-top: none;
             padding: .1rem;
             font-size: $option-font;
+        }
+
+        .footer-section {
+            background: rgba(0, 0, 0, 0.7);
+            padding-right: 15px;
+            padding-left: 15px;
+            padding-bottom: 20px;
+            padding-top: 20px;
+            color: #9d9d9d;
+            font-size: 15px;
+            bottom: 0px;
+            width: 100%;
         }
