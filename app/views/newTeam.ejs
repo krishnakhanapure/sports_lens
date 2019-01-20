@@ -32,7 +32,7 @@
 
 <div class="container">
     <div class="row">
-         <form class="form-horizontal action-form" action="" method="" enctype="multipart/form-data">
+         <form class="form-horizontal action-form newteam" id="newTeamDetails" action="newTeamData" method="post" novalidate>
 
             <fieldset class="form-content">
                 <!-- Address form -->
@@ -42,23 +42,20 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Name:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input required name="" type="text" placeholder="Team Name"
-                        class="input-xlarge form-control" />
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Preferred Name:</label>
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input required name="" type="text" placeholder="Team Preferred Name"
+                        <input required name="teamName" type="text" placeholder="Team Name"
                         class="input-xlarge form-control" />
                     </div>
                 </div>
 
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Coach Name:</label>
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input required name="" type="text" placeholder="Coach Name"
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        <input required name="coachFirstName" type="text" placeholder="Coach First Name"
+                        class="input-xlarge form-control" />
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        <input name="coachLastName" type="text" placeholder="Coach Last Name"
                         class="input-xlarge form-control" />
                     </div>
                 </div>
@@ -66,7 +63,15 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Coach Country:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <input required name="" type="text" placeholder="Coach Country"
+                        <input required name="coachCountry" type="text" placeholder="Coach Country"
+                        class="input-xlarge form-control" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Preferred Name:</label>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <input required name="TeamPrfName" type="text" placeholder="Team Preferred Name"
                         class="input-xlarge form-control" />
                     </div>
                 </div>
@@ -82,26 +87,27 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Type:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <select required id="" name="" class="input-xlarge form-control">
-                            <option>Domestic</option>
-                            <option>International</option>
+                        <select required id="" name="teamType" class="input-xlarge form-control">
+                            <option value="">Select</option>
+                            <option value="Domestic">Domestic</option>
+                            <option value="International">International</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Logo:</label>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div class="input-group">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="teamLogo">
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                           </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Country:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <select required id="" name="" class="input-xlarge form-control">
@@ -109,7 +115,7 @@
                             <option>Australia</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
                     <input class="submitButton" type="submit" name="" id="" value="Submit" />

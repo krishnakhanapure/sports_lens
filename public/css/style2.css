@@ -22,7 +22,7 @@ body {
 .form-control {
   width: 70%; }
 
-.newplayer .form-control {
+.newteam .form-control, .newplayer .form-control {
   width: 100%; }
 
 .form-content {

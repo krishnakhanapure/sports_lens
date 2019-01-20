@@ -1,20 +1,17 @@
-
-// var mysql = require('mysql');
+ var mysql = require('mysql');
 // var pool = mysql.createPool({
-//         host: 'localhost',
-//       user: 'admin',
-//       password: 'test',
-//       database: 'InterviewTracker'
+//   host    : 'localhost',
+//   user    : 'root',
+//   password: 'password',
+//   database: 'test_database'
 // });
 
-// module.exports = pool;
-
-var mysql = require('mysql');
- var pool = mysql.createPool({
- 	  host: 'interview-tracker.cl126dktpchh.us-east-1.rds.amazonaws.com',
- 	  user: 'krishna', 
- 	  password: 'krishnakrishna', 
- 	  database: 'interview_tracker'
- });
-
- module.exports = pool;
+var pool = mysql.createPool({
+  host    : 'id1fu4mq3dmba33.c3nvzhyk44tg.us-east-1.rds.amazonaws.com',
+  Port	  :  3306,
+  user    : 'ipl',
+  password: 'ipl123456',
+  database: 'ipl'
+});
+ 
+module.exports = pool;
