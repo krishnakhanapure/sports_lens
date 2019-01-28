@@ -32,7 +32,7 @@
 
 <div class="container">
     <div class="row">
-         <form class="form-horizontal action-form newplayer" action="" method="" enctype="multipart/form-data">
+         <form class="form-horizontal action-form newplayer" id="newPlayerDetails" action="newPlayerData" method="post" novalidate>
 
             <fieldset class="form-content">
                 <!-- Address form -->
@@ -42,12 +42,12 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Name:</label>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        <input required name="" type="text" placeholder="Player's First Name"
+                        <input required name="playerFirstName" type="text" placeholder="Player's First Name"
                         class="input-xlarge form-control" />
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        <input name="" type="text" placeholder="Player's Last Name"
+                        <input name="playerLastName" type="text" placeholder="Player's Last Name"
                         class="input-xlarge form-control" />
                     </div>
                 </div>
@@ -63,9 +63,10 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Batting Style:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <select required id="" name="" class="input-xlarge form-control">
-                            <option>Right Hand Batsman</option>
-                            <option>Left Hand Batsman</option>
+                        <select required id="" name="battingStyle" class="input-xlarge form-control">
+                            <option value="">Select</option>
+                            <option value="rightHandBatsman">Right Hand Batsman</option>
+                            <option value="leftHandBatsman">Left Hand Batsman</option>
                         </select>
                     </div>
                 </div>
@@ -73,9 +74,10 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Bowling Style:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <select required id="" name="" class="input-xlarge form-control">
-                            <option>Right Hand Fast</option>
-                            <option>Left Arm Fast</option>
+                        <select required id="" name="bowlingStyle" class="input-xlarge form-control">
+                            <option value="">Select</option>
+                            <option value="rightHandFast">Right Hand Fast</option>
+                            <option value="leftArmFast">Left Arm Fast</option>
                         </select>
                     </div>
                 </div>
@@ -83,10 +85,11 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Name:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                         <select required id="" name="" class="input-xlarge form-control">
-                            <option>Team 1(from 1st screen)</option>
-                            <option>Team 2</option>
-                            <option>Team 3</option>
+                         <select required id="" name="teamName" class="input-xlarge form-control">
+                            <option value="">Select</option>
+                            <option value="test3">test3</option>
+                            <option value="Team2">Team 2</option>
+                            <option value="Team3">Team 3</option>
                         </select>
                     </div>
                 </div>
@@ -96,7 +99,7 @@
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div class="input-group">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="playerImage">
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                           </div>
                         </div>
@@ -106,22 +109,23 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Date of Birth:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                         <input required format="mm-dd-yyyy" id="" name="" type="date" class="input-xlarge form-control" />
+                         <input required format="mm-dd-yyyy" id="" name="playerDOB" type="date" class="input-xlarge form-control" />
                     </div>
                 </div>
 
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Country of Origin:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                         <select required id="" name="" class="input-xlarge form-control">
-                            <option>India</option>
-                            <option>Australia</option>
+                         <select required id="" name="playerCountry" class="input-xlarge form-control">
+                            <option value="">Select</option>
+                            <option value="IND">India</option>
+                            <option value="AUS">Australia</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="row">
-                    <input class="submitButton" type="submit" name="" id="" value="Submit" />
+                    <input class="submitButton" type="submit" name="submitPlayer" id="submitPlayer" value="Submit" />
                 </div>
 
             </fieldset>

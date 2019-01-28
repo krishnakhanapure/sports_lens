@@ -12,7 +12,7 @@ $table-border: #939393;
 
         .container {
             margin-top: 3%;
-            width: 70%
+            width: 70%;
         }
 
         label, h6 {
@@ -130,7 +130,7 @@ $table-border: #939393;
             text-align: center;
         }
 
-        .logo-section-img img{
+        .logo-section-img img {
             width: 41%;
             display: inline-block;
             padding: 14px;
@@ -174,7 +174,7 @@ $table-border: #939393;
             font-size: $option-font;
         }
 
-        .form-check-label > input[type="checkbox"]{
+        .form-check-label > input[type="checkbox"] {
             margin-right: 0;
         }
 
@@ -197,7 +197,7 @@ $table-border: #939393;
             width: 100%;
         }
 
-        .access-control table td, .access-control table th, .data-action-section table td, .data-action-section table th{
+        .access-control table td, .access-control table th, .data-action-section table td, .data-action-section table th {
             border: 1px solid $table-border !important;
             color: $form-text-color;
         }
@@ -215,7 +215,7 @@ $table-border: #939393;
             height: 150px;
         }
 
-        table.player-list thead th{
+        table.player-list thead th {
             border: none;
         }
 
@@ -236,4 +236,6 @@ $table-border: #939393;
             font-size: 15px;
             bottom: 0px;
             width: 100%;
+            position: relative;
+            display: block;
         }

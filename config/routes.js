@@ -16,4 +16,5 @@ module.exports = function (app) {
 
     //post Calls
     app.post('/newTeamData', home.newTeamData);
+    app.post('/newPlayerData', home.newPlayerData);
 }

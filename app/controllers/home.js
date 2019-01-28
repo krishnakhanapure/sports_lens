@@ -3,6 +3,7 @@ var Q = require('q');
 var query = require('../../config/queries.js');
 
 var newTeamInsert = require('../models/newTeamInsert.js');
+var newPlayerInsert = require('../models/newPlayerInsert.js');
 
 exports.homePage = function(req, res) {
 		
@@ -55,10 +56,28 @@ exports.approveScore = function(req, res) {
 }
 
 exports.newTeamData = function(req, res) {
-	console.log("req.body data... "+JSON.stringify(req.body));
+	console.log("newTeamData req.body data... "+JSON.stringify(req.body));
 
     pool.getConnection((err, connection) => {
 		connection.query(newTeamInsert.buildQuery(req.body), (err, rows, fields) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and insert query");
+				console.log(err);
+				
+			} else {
+				console.log('data entered successfully');
+				
+			}
+		});		
+	});					
+}
+
+exports.newPlayerData = function(req, res) {
+	console.log("newPlayerInsert req.body data... "+JSON.stringify(req.body));
+
+    pool.getConnection((err, connection) => {
+		connection.query(newPlayerInsert.buildQuery(req.body), (err, rows, fields) => {
 			connection.release();
 			if(err) {
 				console.log("Error in connection and insert query");
