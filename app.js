@@ -8,6 +8,7 @@ var path = require('path');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const session = require('express-session');
 
 //app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -24,6 +25,11 @@ app.set('views', path.join(__dirname, 'app/views'));
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(session({
+  user_id: 'test',
+  secret: 'user_login'
+}));
 
 
 // routes ======================================================================

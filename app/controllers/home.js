@@ -26,9 +26,7 @@ exports.newTeam = function(req, res) {
 }
 
 exports.newPlayer = function(req, res) {
-    res.render('playerRegistration.ejs', {			
-			
-	}); 					
+    res.render('playerRegistration.ejs', { playerMsg : "" }); 					
 }
 
 exports.newTournament = function(req, res) {
@@ -44,7 +42,7 @@ exports.newMatch = function(req, res) {
 }
 
 exports.updateDetails = function(req, res) {
-    res.render('', {			
+    res.render('updateDetails.ejs', {			
 			
 	}); 					
 }
@@ -57,6 +55,12 @@ exports.accessControl = function(req, res) {
 
 exports.approveScore = function(req, res) {
     res.render('matchDataAction.ejs', {			
+			
+	}); 					
+}
+
+exports.viewReports = function(req, res) {
+    res.render('reportScreen.ejs', {			
 			
 	}); 					
 }
@@ -90,8 +94,9 @@ exports.newPlayerData = function(req, res) {
 				console.log(err);
 				
 			} else {
+
 				console.log('data entered successfully');
-				
+				res.render('playerRegistration.ejs', { playerMsg : "valid" });
 			}
 		});		
 	});					
@@ -99,11 +104,13 @@ exports.newPlayerData = function(req, res) {
 
 exports.checkUser = function(req, res) {
 
-    console.log(JSON.stringify(req.body));	
     var emailsent = req.body.email;
     var passwordsent = 	req.body.password;
 
+    console.log("session ids "+req.session.user_id);
+
     if(emailsent === "admin" && passwordsent === "admin" ) {
+    	req.session.user_id = emailsent;
     	res.render('homePage.ejs', {} );
 
     } else {
