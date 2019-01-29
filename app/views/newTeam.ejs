@@ -40,7 +40,7 @@
                 <h3>New Team Registration</h3>
 
                 <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Name:</label>
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Name:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <input required name="teamName" type="text" placeholder="Team Name"
                         class="input-xlarge form-control" />
@@ -48,9 +48,9 @@
                 </div>
 
                 <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Coach Name:</label>
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Coach Name:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        <input required name="coachFirstName" type="text" placeholder="Coach First Name"
+                        <input required name="coachFirstName" type="text" placeholder="Coach First Name*"
                         class="input-xlarge form-control" />
                     </div>
 
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Coach Country:</label>
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Coach Country:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <input required name="coachCountry" type="text" placeholder="Coach Country"
                         class="input-xlarge form-control" />
@@ -69,7 +69,7 @@
                 </div>
 
                 <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Preferred Name:</label>
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Preferred Name:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <input required name="TeamPrfName" type="text" placeholder="Team Preferred Name"
                         class="input-xlarge form-control" />
@@ -85,7 +85,7 @@
                 </div> -->
 
                 <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Type:</label>
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Type:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <select required id="" name="teamType" class="input-xlarge form-control">
                             <option value="">Select</option>
@@ -96,11 +96,11 @@
                 </div>
 
                 <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Logo:</label>
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Logo:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div class="input-group">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="teamLogo">
+                            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="teamLogo" required>
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                           </div>
                         </div>

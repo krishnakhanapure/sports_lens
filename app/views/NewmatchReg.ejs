@@ -40,7 +40,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 border-secondary border-right">
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Tournament Name:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Tournament Name:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <select required id="" name="" class="input-xlarge form-control">
                                     <option>IND vs WI - 2018</option>
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 1:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 1:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <select required id="" name="" class="input-xlarge form-control">
                                     <option>India (From DB)</option>
@@ -61,6 +61,17 @@
                         </div>
 
                         <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 2:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <select required id="" name="" class="input-xlarge form-control">
+                                    <option>India (From DB)</option>
+                                    <option>West Indies</option>
+                                    <option>England</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
                             <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 2:</label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <select required id="" name="" class="input-xlarge form-control">
@@ -69,74 +80,64 @@
                                     <option>England</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 2:</label>
-                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                <select required id="" name="" class="input-xlarge form-control">
-                                    <option>India (From DB)</option>
-                                    <option>West Indies</option>
-                                    <option>England</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Start Date:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Start Date:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                  <input required format="mm-dd-yyyy" id="" name="" type="date" class="input-xlarge form-control" />
                             </div>
                         </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Venue:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Venue:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <input name="" type="text" placeholder="Venue" class="input-xlarge form-control" value="" />
                             </div>
                         </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Ground:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Ground:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <input name="" type="text" placeholder="Ground" class="input-xlarge form-control" value="" />
                             </div>
                         </div>
 
-                        <!-- <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Match Category:</label>
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Match Type:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <select required id="" name="" class="input-xlarge form-control">
-                                    <option>ODI</option>
-                                    <option>Test</option>
-                                    <option>T20</option>
+                                    <option value="">select</option>
+                                    <option value="ODI">ODI</option>
+                                    <option value="T20">T20</option>
+                                    <option value="Test">Test</option>
                                 </select>
                             </div>
-                        </div> -->
+                        </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Umpire 1:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Umpire 1:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <input name="" type="text" placeholder="Umpire 1" class="input-xlarge form-control" value="" />
                             </div>
                         </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Umpire 2:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Umpire 2:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <input name="" type="text" placeholder="Umpire 2" class="input-xlarge form-control" value="" />
                             </div>
                         </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Referee:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Referee:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <input name="" type="text" placeholder="Referee" class="input-xlarge form-control" value="" />
                             </div>
                         </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Analyst Name:</label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Analyst Name:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                                 <input required name="" type="text" placeholder="Analyst Name"
                                 class="input-xlarge form-control" />

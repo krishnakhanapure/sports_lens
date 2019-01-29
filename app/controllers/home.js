@@ -5,6 +5,12 @@ var query = require('../../config/queries.js');
 var newTeamInsert = require('../models/newTeamInsert.js');
 var newPlayerInsert = require('../models/newPlayerInsert.js');
 
+exports.login = function(req, res) {
+		
+    res.render('signup.ejs',  { serverMsg : "" });
+	 					
+}
+
 exports.homePage = function(req, res) {
 		
     res.render('homePage.ejs', {
@@ -89,6 +95,21 @@ exports.newPlayerData = function(req, res) {
 			}
 		});		
 	});					
+}
+
+exports.checkUser = function(req, res) {
+
+    console.log(JSON.stringify(req.body));	
+    var emailsent = req.body.email;
+    var passwordsent = 	req.body.password;
+
+    if(emailsent === "admin" && passwordsent === "admin" ) {
+    	res.render('homePage.ejs', {} );
+
+    } else {
+    	res.render('signup.ejs', { serverMsg : "invalid" });
+
+    }
 }
 
 

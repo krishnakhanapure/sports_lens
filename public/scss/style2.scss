@@ -239,3 +239,8 @@ $table-border: #939393;
             position: relative;
             display: block;
         }
+
+        .mandatory-field {
+            color: red;
+            font-weight: bold;
+        }

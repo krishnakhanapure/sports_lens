@@ -5,6 +5,7 @@ var home = require('../app/controllers/home');
 module.exports = function (app) {
 
     //get Calls
+    app.get('/', home.login);
     app.get('/homePage', home.homePage);
     app.get('/newTeam', home.newTeam);
     app.get('/newPlayer', home.newPlayer);
@@ -17,4 +18,5 @@ module.exports = function (app) {
     //post Calls
     app.post('/newTeamData', home.newTeamData);
     app.post('/newPlayerData', home.newPlayerData);
+    app.post('/signup', home.checkUser);
 }

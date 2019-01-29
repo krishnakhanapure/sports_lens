@@ -40,7 +40,7 @@ h3 {
     line-height: 30px;
 }
 
-img { max-width: 100%; }
+img { max-width: 100%; width: 70%;}
 
 ::-moz-selection { background: #4aaf51; color: #fff; text-shadow: none; }
 ::selection { background: #4aaf51; color: #fff; text-shadow: none; }
@@ -144,9 +144,10 @@ img { max-width: 100%; }
 
 .form-bottom {
 	padding: 25px 25px 30px 25px;
-	background: #eee;
+	background: #fff;
 	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
 	text-align: left;
+
 }
 
 .form-bottom form textarea {
@@ -190,4 +191,23 @@ img { max-width: 100%; }
 	
 	h1, h2 { font-size: 32px; }
 
+}
+
+.form-box {
+  float: right;
+  width: 43%;
+  opacity: 0.9;
+}
+
+.logo-name {
+  font-weight: bold; }
+
+.body-background {
+	background-image: url("/images/login_bg.png");
+	background-position: top;
+}
+
+.error-block {
+	font-weight: bold;
+    color: #EB172D;
 }
