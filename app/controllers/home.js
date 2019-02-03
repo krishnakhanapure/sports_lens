@@ -7,6 +7,7 @@ var newPlayerInsert = require('../models/newPlayerInsert.js');
 var newTournamentInsert = require('../models/newTournamentInsert.js');
 var updateTeamInsert = require('../models/updateTeamInsert.js');
 var updateTournamentInsert = require('../models/updateTournamentInsert.js');
+var updatePlayerInsert = require('../models/updatePlayerInsert.js');
 
 exports.login = function(req, res) {
 		
@@ -414,18 +415,32 @@ exports.updatePlayer = function(req, res) {
 	      return defered.promise;
 	    } 
 
-	    Q.all([queryTeams(), queryBowlingStyle(), queryCountry()]).then((results) => {
+	    function queryPlayers(){
+	      var defered = Q.defer();
+	      connection.query(queryStr.GET_PLAYERS_NAMES(),defered.makeNodeResolver());
+	      return defered.promise;
+	    } 
+
+	    function queryPlayersStatus(){
+	      var defered = Q.defer();
+	      connection.query(queryStr.GET_PLAYER_STATUS(),defered.makeNodeResolver());
+	      return defered.promise;
+	    }
+
+	    Q.all([queryTeams(), queryBowlingStyle(), queryCountry(), queryPlayers(), queryPlayersStatus()]).then((results) => {
 	      connection.release();
 	      if(err) {
 	      	console.log("err in updatePlayer.. "+err);
 	        res.end();
 	      }
 	      else {
-	      	console.log(JSON.stringify(results));
+	      	console.log("check the players list... "+JSON.stringify(results[3]));
 	        res.render('updatePlayer.ejs', {
 	        	teamsList:results[0],
 	        	bowlingStyles:results[1],
-				countryList:results[2]
+				countryList:results[2],
+				playerList:results[3],
+				playerStatus:results[4]
 			});
 	      }
 	    });
@@ -498,6 +513,49 @@ exports.updateTournamentDetails = function(req, res) {
 
     pool.getConnection((err, connection) => {
 		connection.query(updateTournamentInsert.buildQuery(req.body), (err, rows, fields) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and insert query");
+				console.log(err);
+				
+			} else {
+				console.log('data entered successfully');
+				res.render('redirectPage.ejs', { 
+					Message : "Data Entered Successfully!",
+					redirectRoute : "/updateTournament"
+
+				});
+			}
+		});		
+	});					
+}
+
+exports.getSelectedPlayerValues = function(req, res) {
+
+	var playerCode = req.query.playerCode;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.GET_SELECTED_PLAYER_VALS(playerCode), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+				res.send(result);
+				console.log("player details... "+JSON.stringify(result));
+				
+			}
+		});		
+	});					
+}
+
+exports.updatePlayerData = function(req, res) {
+
+	var teamCode = req.query.teamCode;
+
+    pool.getConnection((err, connection) => {
+		connection.query(updatePlayerInsert.buildQuery(req.body), (err, rows, fields) => {
 			connection.release();
 			if(err) {
 				console.log("Error in connection and insert query");

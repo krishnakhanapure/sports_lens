@@ -81,10 +81,10 @@ var getTeamDetails = (val) => {
         document.getElementById('coachcontractyear').value = data[0]["contract_start"];
         document.getElementById('coachcontractyearend').value = data[0]["contract_end"];
         document.getElementById('teamType').value = data[0]["team_type"];
-        document.getElementById('teamLogo').value = data[0]["team_logo"];
+        
         document.getElementById('teamCountry').value = data[0]["country_code"];
 
-        console.log(JSON.stringify(data));
+        document.getElementById('teamLogo').value = data[0]["team_logo"];
       }
     });
 }
@@ -130,3 +130,47 @@ var getTournamentDetails = (val) => {
     });
 }
 
+var getplayerDetails = (val) => {
+
+  console.log("val.. "+val);
+    
+    $.ajax({
+      type: 'GET',
+      data: { playerCode : val },
+      url: '/getSelectedPlayerValues',
+      success: function(data) {
+
+        document.getElementById('playerFirstName').value = data[0]["first_name"];
+        document.getElementById('playerLastName').value = data[0]["last_name"];
+        document.getElementById('battingStyle').value = data[0]["batting_hand"];
+        document.getElementById('bowlingStyle').value = data[0]["bowling_style"];
+        document.getElementById('teamName').value = data[0]["primary_team_code"];
+        document.getElementById('playerCountry').value = data[0]["country_code"];
+        document.getElementById('playerStatus').value = data[0]["player_status_flag"];
+
+        $('#playerDOB').val(data[0][Object.keys(data[0])[8]]);
+
+        //populate multiselect
+        if(data[0]["team_list"] != null) {
+          var countryArr = data[0]["team_list"].split(',');
+          var strToDisplay = "";
+
+          for(var i=0; i<countryArr.length; i++) {
+            countryArr[i] = countryArr[i].slice(1,countryArr[i].lastIndexOf("'"));;
+
+            if(strToDisplay == "")
+              strToDisplay += $('#playerTeams option[value="'+countryArr[i]+'"]').html();
+            else
+              strToDisplay += ","+$('#playerTeams option[value="'+countryArr[i]+'"]').html();
+          }
+          $('.filter-option-inner-inner').html(strToDisplay);
+          $('#playerTeams').val(countryArr);
+
+        }else {
+          $('.filter-option-inner-inner').html("Nothing selected");
+          $('#playerTeams').val("");
+        }
+        document.getElementById('inputGroupFile01').value = data[0]["player_image"];
+      }
+    });
+}

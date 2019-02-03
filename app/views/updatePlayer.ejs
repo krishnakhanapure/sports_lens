@@ -15,6 +15,7 @@
           <link rel="stylesheet" type="text/css" href="/css/style2.css" />
           <link rel="icon" href="/images/001-shutter.png">
 
+          <script src="/js/script.js"></script>
           <script type="text/javascript">
             
             $('select').selectpicker();
@@ -40,7 +41,7 @@
 
 <div class="container">
     <div class="row">
-         <form class="form-horizontal action-form newplayer" id="newPlayerDetails" action="newPlayerData" method="post" >
+         <form class="form-horizontal action-form newplayer" id="updatePlayerDetails" action="updatePlayerData" method="post" >
 
             <fieldset class="form-content">
                 <!-- Address form -->
@@ -50,9 +51,15 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><b>Select a Player To Update:</b></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <select required id="teamid" name="teamid" class="input-xlarge form-control" onchange="getplayerDetails(this.value);">
+                        <select required id="playerId" name="playerId" class="input-xlarge form-control" onchange="getplayerDetails(this.value);">
                             
                              <option value="">--Select--</option>
+                             <% for(var i=0; i<playerList[0].length; i++) {%>
+                               <%if (playerList[0][i].player_name.length > 0) { %>
+                                    <option value=<%= playerList[0][i].player_id %>><%= playerList[0][i].player_name %></option>
+                                       
+                               <% } %>
+                            <% } %>
                             
                         </select>
                     </div>
@@ -61,12 +68,12 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Name:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        <input required name="playerFirstName" type="text" placeholder="Player's First Name*"
+                        <input required name="playerFirstName" id="playerFirstName" type="text" placeholder="Player's First Name*"
                         class="input-xlarge form-control" />
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-                        <input name="playerLastName" type="text" placeholder="Player's Last Name"
+                        <input name="playerLastName" id="playerLastName" type="text" placeholder="Player's Last Name"
                         class="input-xlarge form-control" />
                     </div>
                 </div>
@@ -153,18 +160,33 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Date of Birth:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                         <input required format="mm-dd-yyyy" id="" name="playerDOB" type="date" class="input-xlarge form-control" />
+                         <input required format="mm-dd-yyyy" id="playerDOB" name="playerDOB" type="date" class="input-xlarge form-control" />
                     </div>
                 </div>
 
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Country of Origin:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                         <select required id="" name="playerCountry" class="input-xlarge form-control">
+                         <select required id="playerCountry" name="playerCountry" class="input-xlarge form-control">
                             <option value="">--Select--</option>
                             <% for(var i=0; i<countryList[0].length; i++) {%>
                                <%if (countryList[0][i].country_code.length > 0) { %>
                                     <option value=<%= countryList[0][i].country_code %>><%= countryList[0][i].country_name %></option>
+                                       
+                               <% } %>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player Status:<span class="mandatory-field">*</span></label>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                         <select required id="playerStatus" name="playerStatus" class="input-xlarge form-control">
+                            <option value="">--Select--</option>
+                            <% for(var i=0; i<playerStatus[0].length; i++) {%>
+                               <%if (playerStatus[0][i].player_status_descr.length > 0) { %>
+                                    <option value=<%= playerStatus[0][i].player_status_flag %>><%= playerStatus[0][i].player_status_descr %></option>
                                        
                                <% } %>
                             <% } %>

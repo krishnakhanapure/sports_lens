@@ -45,6 +45,15 @@ module.exports = {
 		return sqlsp;
 	},
 
+	'UPDATE_NEW_PLAYER': function(formData) {
+
+		let sqlsp = `CALL proc_upd_player("`+formData[0]+`","`+formData[1]+`","`+formData[2]+`","`+formData[3]+`","`+formData[4]+`","`+formData[5]+`","`+formData[6]+`","`+formData[7]+`","`+formData[8]+`","`+formData[9]+`","`+formData[10]+`")`;
+
+		console.log("UPDATE_NEW_PLAYER call statement... "+sqlsp);
+
+		return sqlsp;
+	},
+
 	'GET_TEAM_NAMES_CODES': function() {
 
 		let sqlQuery = "select distinct team_name,team_code,team_id from team";
@@ -81,18 +90,29 @@ module.exports = {
 		
 	},
 
+	'GET_PLAYER_STATUS': function() {
+		let sqlQuery = "SELECT player_status_flag, player_status_descr FROM player_status_l";
+		return sqlQuery;
+		
+	},
+
 	'GET_SELECTED_TEAM_VALS': function(teamId) {
 		let sqlQuery = "SELECT team_name, team_code, coach_first_name, coach_last_name, coach_country, contract_start, contract_end, team_type, team_logo, country_code FROM team, coach_history WHERE team.coach_id = coach_history.coach_id AND team.team_id = '"+teamId+"'";
 		return sqlQuery;
 	},
 
 	'GET_PLAYERS_NAMES': function() {
-		let sqlQuery = "SELECT tournament_id,tournament_name FROM tournament";
+		let sqlQuery = "SELECT player_id, CONCAT(first_name,' ',last_name) AS player_name FROM player";
 		return sqlQuery;
 	},
 
 	'GET_SELECTED_TOURNAMENT_VALS': function(tournamentId) {
 		let sqlQuery = "SELECT t.tournament_name, t.tournament_type, t.country_code, GROUP_CONCAT(CONCAT('''', tt.team_code , '''' )) as team_list, DATE_FORMAT(t.start_date,'%Y-%m-%d'), DATE_FORMAT(t.end_date,'%Y-%m-%d') FROM tournament t, tournament_team tt WHERE t.tournament_id = tt.tournament_id AND t.tournament_id = '"+tournamentId+"'";
+		return sqlQuery;
+	},
+
+	'GET_SELECTED_PLAYER_VALS': function(playerId) {
+		let sqlQuery = "SELECT p.first_name, p.last_name, p.batting_hand, p.bowling_style, p.primary_team_code, p.player_status_flag, GROUP_CONCAT(CONCAT('''', pt.team_code , '''' )) as team_list, p.player_image, DATE_FORMAT(p.dob,'%Y-%m-%d'), p.country_code FROM player p, player_team pt WHERE p.player_id = pt.player_id AND p.player_id = '"+playerId+"'";
 		return sqlQuery;
 	},
 
