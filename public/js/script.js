@@ -89,3 +89,44 @@ var getTeamDetails = (val) => {
     });
 }
 
+var getTournamentDetails = (val) => {
+
+  console.log("val.. "+val);
+    
+    $.ajax({
+      type: 'GET',
+      data: { tournamentCode : val },
+      url: '/getSelectedTournamentValues',
+      success: function(data) {
+
+        document.getElementById('tournamentName').value = data[0]["tournament_name"];
+        document.getElementById('tournamentType').value = data[0]["tournament_type"];
+        document.getElementById('tournamentCountry').value = data[0]["country_code"];
+
+        $('#tournamentStart').val(data[0][Object.keys(data[0])[4]]);
+        $('#tournamentEnd').val(data[0][Object.keys(data[0])[5]]);
+
+        //populate multiselect
+        if(data[0]["team_list"] != null) {
+          var countryArr = data[0]["team_list"].split(',');
+          var strToDisplay = "";
+          for(var i=0; i<countryArr.length; i++) {
+            countryArr[i] = countryArr[i].slice(1,countryArr[i].lastIndexOf("'"));;
+
+            if(strToDisplay == "")
+              strToDisplay += $('#tournamentTeam option[value="'+countryArr[i]+'"]').html();
+            else
+              strToDisplay += ","+$('#tournamentTeam option[value="'+countryArr[i]+'"]').html();
+          }
+          $('.filter-option-inner-inner').html(strToDisplay);
+          $('#tournamentTeam').val(countryArr);
+
+        }else {
+          $('.filter-option-inner-inner').html("Nothing selected");
+          $('#tournamentTeam').val("");
+        }
+
+      }
+    });
+}
+

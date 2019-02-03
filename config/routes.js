@@ -22,6 +22,7 @@ module.exports = function (app) {
     app.get('/updateTeam', home.updateTeam);
     app.get('/updatePlayer', home.updatePlayer);
     app.get('/updateTournament', home.updateTournament);
+    app.get('/getSelectedTournamentValues', home.getSelectedTournamentValues);
 
     //post Calls
     app.post('/newTeamData', home.newTeamData);
@@ -29,5 +30,6 @@ module.exports = function (app) {
     app.post('/signup', home.checkUser);
     app.post('/newTournament', home.addTournament);
     app.post('/updateTeamDetails', home.updateTeamDetails);
+    app.post('/updateTournamentDetails', home.updateTournamentDetails);
     
 }

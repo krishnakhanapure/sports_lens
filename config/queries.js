@@ -36,6 +36,15 @@ module.exports = {
 		return sqlsp;
 	},
 
+	'UPDATE_TOURNAMENT_VALUES': function(formData) {
+
+		let sqlsp = `CALL proc_upd_tournament("`+formData[0]+`","`+formData[1]+`","`+formData[2]+`","`+formData[3]+`","`+formData[4]+`","`+formData[5]+`","`+formData[6]+`")`;
+
+		console.log("UPDATE_TOURNAMENT_VALUES call statement... "+sqlsp);
+
+		return sqlsp;
+	},
+
 	'GET_TEAM_NAMES_CODES': function() {
 
 		let sqlQuery = "select distinct team_name,team_code,team_id from team";
@@ -79,6 +88,11 @@ module.exports = {
 
 	'GET_PLAYERS_NAMES': function() {
 		let sqlQuery = "SELECT tournament_id,tournament_name FROM tournament";
+		return sqlQuery;
+	},
+
+	'GET_SELECTED_TOURNAMENT_VALS': function(tournamentId) {
+		let sqlQuery = "SELECT t.tournament_name, t.tournament_type, t.country_code, GROUP_CONCAT(CONCAT('''', tt.team_code , '''' )) as team_list, DATE_FORMAT(t.start_date,'%Y-%m-%d'), DATE_FORMAT(t.end_date,'%Y-%m-%d') FROM tournament t, tournament_team tt WHERE t.tournament_id = tt.tournament_id AND t.tournament_id = '"+tournamentId+"'";
 		return sqlQuery;
 	},
 

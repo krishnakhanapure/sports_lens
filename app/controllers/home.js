@@ -6,6 +6,7 @@ var newTeamInsert = require('../models/newTeamInsert.js');
 var newPlayerInsert = require('../models/newPlayerInsert.js');
 var newTournamentInsert = require('../models/newTournamentInsert.js');
 var updateTeamInsert = require('../models/updateTeamInsert.js');
+var updateTournamentInsert = require('../models/updateTournamentInsert.js');
 
 exports.login = function(req, res) {
 		
@@ -372,8 +373,6 @@ exports.getSelTeamValues = function(req, res) {
 
 exports.updateTeamDetails = function(req, res) {
 
-	var teamCode = req.query.teamCode;
-
     pool.getConnection((err, connection) => {
 		connection.query(updateTeamInsert.buildQuery(req.body), (err, rows, fields) => {
 			connection.release();
@@ -449,7 +448,13 @@ exports.updateTournament = function(req, res) {
 	      return defered.promise;
 	    } 
 
-	    Q.all([queryTeams(), queryCountry()]).then((results) => {
+	    function queryTournaments(){
+	      var defered = Q.defer();
+	      connection.query(queryStr.GET_TOURNAMENT_NAMES(),defered.makeNodeResolver());
+	      return defered.promise;
+	    } 
+
+	    Q.all([queryTeams(), queryCountry(), queryTournaments()]).then((results) => {
 	      connection.release();
 	      if(err) {
 	      	console.log("err in updateTournament.. "+err);
@@ -459,10 +464,54 @@ exports.updateTournament = function(req, res) {
 	      	console.log(JSON.stringify(results));
 	        res.render('updateTournament.ejs', {
 	        	teamsList:results[0],
-				countryList:results[1]
+				countryList:results[1],
+				tournamentList:results[2]
 			});
 	      }
 	    });
+	});					
+}
+
+exports.getSelectedTournamentValues = function(req, res) {
+
+	var tournamentCode = req.query.tournamentCode;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.GET_SELECTED_TOURNAMENT_VALS(tournamentCode), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+				res.send(result);
+				console.log("tournament details... "+JSON.stringify(result));
+				
+			}
+		});		
+	});					
+}
+
+exports.updateTournamentDetails = function(req, res) {
+
+	var teamCode = req.query.teamCode;
+
+    pool.getConnection((err, connection) => {
+		connection.query(updateTournamentInsert.buildQuery(req.body), (err, rows, fields) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and insert query");
+				console.log(err);
+				
+			} else {
+				console.log('data entered successfully');
+				res.render('redirectPage.ejs', { 
+					Message : "Data Entered Successfully!",
+					redirectRoute : "/updateTournament"
+
+				});
+			}
+		});		
 	});					
 }
 
