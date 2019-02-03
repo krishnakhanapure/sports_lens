@@ -19,7 +19,13 @@ buildQuery = (o) => {
 	extractObject = [];
 	for (i in newPlayerSPSchema) {
 		if(newPlayerSPSchema[i] === "playerTeams") {
-			var teamArr = o[newPlayerSPSchema[i]];
+			if(o[newPlayerSPSchema[i]] != undefined){
+
+				var teamArr = o[newPlayerSPSchema[i]];
+			}else {
+				teamArr= [];
+			}
+			
 			var newStr = "";
 			var primaryTeam = o["teamName"];
 

@@ -565,7 +565,7 @@ exports.updatePlayerData = function(req, res) {
 				console.log('data entered successfully');
 				res.render('redirectPage.ejs', { 
 					Message : "Data Entered Successfully!",
-					redirectRoute : "/updateTournament"
+					redirectRoute : "/updatePlayer"
 
 				});
 			}

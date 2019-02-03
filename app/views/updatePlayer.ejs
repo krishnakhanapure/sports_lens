@@ -133,7 +133,7 @@
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Team List:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 
-                        <select name="playerTeams" id="playerTeams" class="selectpicker" multiple data-live-search="true" required>
+                        <select name="playerTeams" id="playerTeams" class="selectpicker" multiple data-live-search="true" >
                             <% for(var i=0; i<teamsList[0].length; i++) {%>
                                <%if (teamsList[0][i].team_code.length > 0) { %>
                                     <option value=<%= teamsList[0][i].team_code %>><%= teamsList[0][i].team_name %></option>
