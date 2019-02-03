@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
-    <title>New Tournament Registration</title>
+    <title>Update Tournament</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
           <link rel="icon" href="/images/001-shutter.png">
 
@@ -45,7 +45,18 @@
             <fieldset class="form-content">
                 <!-- Address form -->
          
-                <h3>New Tournament Registration</h3>
+                <h3>Update Tournament Details</h3>
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><b>Select a Tournament To Update:</b></label>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <select required id="teamid" name="teamid" class="input-xlarge form-control" onchange="getTournamentDetails(this.value);">
+                            
+                             <option value="">--Select--</option>
+                            
+                        </select>
+                    </div>
+                </div><br/><br/>
 
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Tournament Name:<span class="mandatory-field">*</span></label>
@@ -80,49 +91,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Tournament Format:</label>
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                         <div>
-                             <div class="form-check form-check-inline">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"> Test
-                                  </label>
-                                  
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                              <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"> ODI
-                              </label>
-                            </div>
-
-                            <div class="form-check form-check-inline ">
-                                <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" > T20
-                                </label> <br />
-                                
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" > T10
-                                </label> <br />
-                                
-                            </div>
-
-                         </div>
-                            <input required name="" type="text" class="input-xlarge form-control matchNo" />
-                            <input required name="" type="text" class="input-xlarge form-control matchNo" />
-                            <input required name="" type="text" class="input-xlarge form-control matchNo" />
-                            <input required name="" type="text" class="input-xlarge form-control matchNo" />
-                         <div>
-                             
-                         </div>
-                         
-                    </div>
-                </div>-->
-
                 <div class="row multi-select-section">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Teams in the Tournament:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -154,7 +122,7 @@
                 </div>
 
                 <div class="row">
-                    <input class="submitButton" type="submit" name="" id="" value="Submit">
+                    <input class="submitButton" type="submit" name="" id="" value="Update">
                 </div>
 
             </fieldset>

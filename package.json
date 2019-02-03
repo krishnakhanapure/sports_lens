@@ -39,7 +39,7 @@
     "passport-local": "latest",
     "passport-saml": "^0.15.0",
     "pm2": "latest",
-    "q": "^1.5.0",
+    "q": "^1.5.1",
     "request": "latest",
     "serve-favicon": "~2.3.0",
     "simple-encryptor": "latest",

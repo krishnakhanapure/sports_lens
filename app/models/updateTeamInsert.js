@@ -1,12 +1,14 @@
 var queryConstant = require('../../config/queries.js');
 
 var newTeamSPSchema = {
-	teamName :'teamName',
-	teamCode: 'teamCode',
-	coachFirstName :'coachFirstName',
-    coachLastName:'coachLastName',
+	teamid :'teamid',
+	teamName: 'teamName',
+	teamCode :'teamCode',
+    coachFirstName:'coachFirstName',
+    coachLastName: 'coachLastName',
     coachCountry:'coachCountry',
     coachcontractyear: 'coachcontractyear',
+    coachcontractyearend: 'coachcontractyearend',
     teamType:'teamType',
     teamLogo:'teamLogo',
 	teamCountry:'teamCountry'
@@ -21,7 +23,7 @@ buildQuery = (o) => {
 		extractObject.push(o[newTeamSPSchema[i]] || '');
 	}
 	
-	return queryConstant.INSERT_NEW_TEAM(extractObject);
+	return queryConstant.UPDATE_TEAM_VALUES(extractObject);
 }
 
 module.exports = { buildQuery: buildQuery };

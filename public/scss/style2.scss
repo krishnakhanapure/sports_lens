@@ -8,6 +8,8 @@ $option-font: 12px;
 $form-layout: 70%;
 $form-text-color: #565D61;
 $table-border: #939393;
+$popUp-font: #46B3C8;
+$error-color: #dc3545;
 
 
         .container {
@@ -15,7 +17,7 @@ $table-border: #939393;
             width: 70%;
         }
 
-        label, h6 {
+        label, h6, .info-data {
             color: $form-text-color;
         }
 
@@ -243,4 +245,46 @@ $table-border: #939393;
         .mandatory-field {
             color: red;
             font-weight: bold;
+        }
+
+        .generateCodeButton {
+            border: 1px solid #eee;
+            padding: 5px;
+
+        }
+
+        .uppercase-input {
+            text-transform: uppercase;
+        }
+
+        .multi-select-section .bootstrap-select {
+            width: 100% !important;
+        }
+
+        .multi-select-section .dropdown-menu {
+            min-width: 100% !important;
+        }
+
+        .insert-stat .modal-body {
+            color: $popUp-font;
+            font-weight: bold;
+            padding: 25px 0px 0px 25px;
+        }
+
+        .insert-stat .modal-footer {
+            border: none;
+        }
+        
+        .tournament-section .multi-select-section .bootstrap-select{
+            width: 70% !important;
+        }
+
+        .error-input, .error-input-name {
+            border: 1px solid red;
+            box-shadow: 0px 0px 5px red inset;
+        }
+
+        .error-code, .error-name {
+            display: none;
+            color: $error-color;
         }

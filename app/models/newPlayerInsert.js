@@ -6,6 +6,7 @@ var newPlayerSPSchema = {
     battingStyle:'battingStyle',
     bowlingStyle:'bowlingStyle',
     teamName: 'teamName',
+    playerTeams: 'playerTeams',
     playerImage:'playerImage',
     playerDOB:'playerDOB',
     playerCountry:'playerCountry'	
@@ -17,7 +18,31 @@ buildQuery = (o) => {
 	let i,query;
 	extractObject = [];
 	for (i in newPlayerSPSchema) {
-		extractObject.push(o[newPlayerSPSchema[i]] || '');
+		if(newPlayerSPSchema[i] === "playerTeams") {
+			var teamArr = o[newPlayerSPSchema[i]];
+			var newStr = "";
+			var primaryTeam = o["teamName"];
+
+			if(!teamArr.includes(primaryTeam)) {
+				teamArr.push(primaryTeam)
+			}
+
+			console.log("teamArr. "+teamArr);
+
+			for(j=0; j< teamArr.length; j++) {
+				if(j==0)
+					newStr += "'"+teamArr[j]+"'";
+				else
+					newStr += ",'"+teamArr[j]+"'";
+			}
+
+
+			console.log("newStr... "+newStr);			
+			extractObject.push(newStr || '');
+
+		}else {
+			extractObject.push(o[newPlayerSPSchema[i]] || '');
+		}
 	}
 	
 	return queryConstant.INSERT_NEW_PLAYER(extractObject);

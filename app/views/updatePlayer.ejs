@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
-    <title>Player Registration</title>
+    <title>Update Player</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
@@ -38,26 +38,6 @@
         </div>
     </div>
 
-
-    <!-- <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-        
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="alert alert-success">Success</h4>
-            </div>
-            <div class="modal-body">
-              <p>Data Entered Successfully.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-          
-        </div>
-    </div> -->
-
 <div class="container">
     <div class="row">
          <form class="form-horizontal action-form newplayer" id="newPlayerDetails" action="newPlayerData" method="post" >
@@ -65,7 +45,18 @@
             <fieldset class="form-content">
                 <!-- Address form -->
          
-                <h3>New Player Registration</h3>
+                <h3>Update Player Details</h3>
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12"><b>Select a Player To Update:</b></label>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <select required id="teamid" name="teamid" class="input-xlarge form-control" onchange="getplayerDetails(this.value);">
+                            
+                             <option value="">--Select--</option>
+                            
+                        </select>
+                    </div>
+                </div><br/><br/>
 
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Name:<span class="mandatory-field">*</span></label>
@@ -134,7 +125,6 @@
                 <div class="row multi-select-section">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Player's Team List:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                         <!-- <textarea required class="form-control input-xlarg team-names" name="" id=""></textarea> -->
 
                         <select name="playerTeams" id="playerTeams" class="selectpicker" multiple data-live-search="true" required>
                             <% for(var i=0; i<teamsList[0].length; i++) {%>
@@ -171,10 +161,6 @@
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Country of Origin:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                          <select required id="" name="playerCountry" class="input-xlarge form-control">
-                            <!-- <option value="">Select</option>
-                            <option value="IND">India</option>
-                            <option value="AUS">Australia</option> -->
-
                             <option value="">--Select--</option>
                             <% for(var i=0; i<countryList[0].length; i++) {%>
                                <%if (countryList[0][i].country_code.length > 0) { %>
@@ -187,7 +173,7 @@
                 </div>
 
                 <div class="row">
-                    <input class="submitButton" type="submit" name="submitPlayer" id="submitPlayer" value="Submit" />
+                    <input class="submitButton" type="submit" name="submitPlayer" id="submitPlayer" value="Update" />
                 </div>
 
             </fieldset>
