@@ -8,6 +8,7 @@ var newTournamentInsert = require('../models/newTournamentInsert.js');
 var updateTeamInsert = require('../models/updateTeamInsert.js');
 var updateTournamentInsert = require('../models/updateTournamentInsert.js');
 var updatePlayerInsert = require('../models/updatePlayerInsert.js');
+var newMatchInsert = require('../models/newMatchInsert.js');
 
 exports.login = function(req, res) {
 		
@@ -128,9 +129,9 @@ exports.newMatch = function(req, res) {
 	      return defered.promise;
 	    } 
 
-	    function queryTeams(){
+	    function queryCountry(){
 	      var defered = Q.defer();
-	      connection.query(queryStr.GET_TEAM_NAMES_CODES(),defered.makeNodeResolver());
+	      connection.query(queryStr.GET_COUNTRIES(),defered.makeNodeResolver());
 	      return defered.promise;
 	    }
 
@@ -140,7 +141,7 @@ exports.newMatch = function(req, res) {
 	      return defered.promise;
 	    }
 
-	    Q.all([queryTournament(), queryTeams(), queryFormats()]).then((results) => {
+	    Q.all([queryTournament(), queryCountry(), queryFormats()]).then((results) => {
 	      connection.release();
 	      if(err) {
 	      	console.log("err in fetching from DB.. "+err);
@@ -150,7 +151,7 @@ exports.newMatch = function(req, res) {
 	      	console.log(JSON.stringify(results[0]));
 	        res.render('NewmatchReg.ejs', {
 				tournamentList:results[0],
-				teamsList:results[1],
+				countryList:results[1],
 				formatList:results[2]
 			});
 	      }
@@ -572,5 +573,69 @@ exports.updatePlayerData = function(req, res) {
 		});		
 	});					
 }
+
+exports.getPlayersForSelectedTeam = function(req, res) {
+
+	var teamCode = req.query.teamCode;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.GET_PLAYERS_FOR_SELECTED_TEAMS(teamCode), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+				res.send(result);
+				console.log("slected player details... "+JSON.stringify(result));
+				
+			}
+		});		
+	});					
+}
+
+exports.getTeamsForSelectedTournament = function(req, res) {
+
+	var tournamentCode = req.query.tournamentCode;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.GET_TEAMS_FOR_SELECTED_TOURNAMENT(tournamentCode), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+				res.send(result);
+				console.log("slected teams details... "+JSON.stringify(result));
+				
+			}
+		});		
+	});					
+}
+
+exports.addMatchDetails = function(req, res) {
+	console.log("inside addMatchDetails");
+
+    pool.getConnection((err, connection) => {
+		connection.query(newMatchInsert.buildQuery(req.body), (err, rows, fields) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and insert query");
+				console.log(err);
+				
+			} else {
+
+				console.log('data entered successfully');
+				res.render('redirectPage.ejs', { 
+					Message : "Data Entered Successfully!",
+					redirectRoute : "/newMatch"
+
+				});
+			}
+		});		
+	});					
+}
+
 
 

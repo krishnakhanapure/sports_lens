@@ -19,7 +19,12 @@ buildQuery = (o) => {
 	// 	extractObject.push(o[newTournamentSPSchema[i]] || '');
 
 		if(newTournamentSPSchema[i] === "tournamentTeam") {
-			var teamArr = o[newTournamentSPSchema[i]];
+			if(o[newTournamentSPSchema[i]] != undefined){
+
+				var teamArr = o[newTournamentSPSchema[i]];
+			}else {
+				teamArr= [];
+			}
 			var newStr = "";
 			// var primaryTeam = o["teamName"];
 

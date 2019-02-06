@@ -1,5 +1,10 @@
 var updateTeamName = "";
 
+// $(document).ready(function() {
+//     console.log( "ready!" );
+//     $('')
+// });
+
 function generateCode() {
     $.get('/getTeamRandomCode', function(data){
         console.log(data + JSON.stringify(data));
@@ -174,3 +179,119 @@ var getplayerDetails = (val) => {
       }
     });
 }
+
+var selectTeams = (val) => {
+
+  console.log("val.. "+val);
+    
+    $.ajax({
+      type: 'GET',
+      data: { tournamentCode : val },
+      url: '/getTeamsForSelectedTournament',
+      success: function(data) {
+
+        var teamSection = '<option value="">--Select--</option>';
+
+        for (var key in data) {
+          if (data.hasOwnProperty(key)) {
+            var val = data[key];
+            
+            teamSection += '<option value="'+val.team_code+'">'+val.team_name+'</option>';
+
+          }
+        }
+          $('#teamOne').html(teamSection);
+          $('#teamtwo').html(teamSection);
+      
+      }
+    });
+}
+
+var fetchPlayer = (team, val) => {
+
+  console.log("val.. "+val);
+    
+    $.ajax({
+      type: 'GET',
+      data: { teamCode : val },
+      url: '/getPlayersForSelectedTeam',
+      success: function(data) {
+
+        var playerSection = "";
+
+        for (var key in data) {
+          if (data.hasOwnProperty(key)) {
+            var val = data[key];
+            
+            playerSection += '<tr for='+val.player_id+'><td>'+val.player_name+'</td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input captainCheck" type="radio" id="" value="'+val.player_id+'" name="captionselect"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input vcCheck" type="radio" id="" value="'+val.player_id+'" name="vicecaptionselect"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input wkCheck" type="radio" id="" value="'+val.player_id+'" name="wicketkeeperselect"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input subsCheck" type="checkbox" id="" value="substitute1" name="substitue"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input playCheck" type="checkbox" id="" value="playing1" name="playing"></label></div></td></tr>'
+
+          }
+        }
+        if(team == "one"){
+          $('.player-list-body-one').html(playerSection);
+        }else {
+          $('.player-list-body-two').html(playerSection);
+        }
+        
+      }
+    });
+}
+
+var createJson = () => {
+
+  var jsonStr = '{"teams": {"teama": {"teamCode": "'+$('#teamOne').val()+'","players": {';
+  var getCaptStat = $("input[name='captionselect']:checked").val();
+  var getVCaptStat = $("input[name='vicecaptionselect']:checked").val();
+  var getWKStat = $("input[name='wicketkeeperselect']:checked").val();
+  var getSubsStat = "";
+  var getPlayStat = "";
+
+  var playerSectionArr = ['player-list-body-one', 'player-list-body-one'];
+
+  for(var j=0; j<playerSectionArr.length; j++) {
+      $('.'+playerSectionArr[j]+' tr').each(function(e){
+
+          var roleCheck = "", VCCheck = "", WKCheck = "" , isSubsPlay = "", idPlay = "";
+
+          if($($(this.childNodes[1]).find("input")).is(":checked")) {
+            roleCheck = "C";
+
+          }else if($($(this.childNodes[2]).find("input")).is(":checked")) {
+            roleCheck = "VC";
+
+          }else if($($(this.childNodes[3]).find("input")).is(":checked")) {
+            roleCheck = "WK";
+
+          } else {
+            roleCheck = "";
+          }
+
+          if($($(this.childNodes[4]).find("input")).is(":checked")) {
+            isSubsPlay = "subs";
+
+          }else if($($(this.childNodes[5]).find("input")).is(":checked")){
+            isSubsPlay = "play";
+
+          }else {
+            isSubsPlay = "";
+          }
+
+          if(isSubsPlay != "") {
+            if(e==15)
+            jsonStr+= '"player'+(e+1)+'": {"playerId": "'+this.attributes["for"].value+'","role": "'+roleCheck+'","subsPlay": "'+isSubsPlay+'"}';
+          else
+            jsonStr+= '"player'+(e+1)+'": {"playerId": "'+this.attributes["for"].value+'","role": "'+roleCheck+'","subsPlay": "'+isSubsPlay+'"},';
+          }
+          
+      });
+
+      if(j == 0)
+        jsonStr+='}}, "teamb": {"teamCode": "'+$('#teamtwo').val()+'","players": {';
+      else
+        jsonStr+='}}}}';
+
+    }
+
+    document.getElementById('playersDetails').value = jsonStr;
+}
+

@@ -224,3 +224,8 @@ table.player-list td, table.player-list th {
 .error-code, .error-name {
   display: none;
   color: #dc3545; }
+
+.team1-section, .team2-section {
+  max-height: 250px;
+  scroll-behavior: smooth;
+  overflow-y: scroll; }

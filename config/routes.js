@@ -24,6 +24,8 @@ module.exports = function (app) {
     app.get('/updateTournament', home.updateTournament);
     app.get('/getSelectedTournamentValues', home.getSelectedTournamentValues);
     app.get('/getSelectedPlayerValues', home.getSelectedPlayerValues);
+    app.get('/getPlayersForSelectedTeam', home.getPlayersForSelectedTeam);
+    app.get('/getTeamsForSelectedTournament', home.getTeamsForSelectedTournament);
 
     //post Calls
     app.post('/newTeamData', home.newTeamData);
@@ -33,5 +35,6 @@ module.exports = function (app) {
     app.post('/updateTeamDetails', home.updateTeamDetails);
     app.post('/updateTournamentDetails', home.updateTournamentDetails);
     app.post('/updatePlayerData', home.updatePlayerData);
+    app.post('/addMatchDetails', home.addMatchDetails);
     
 }

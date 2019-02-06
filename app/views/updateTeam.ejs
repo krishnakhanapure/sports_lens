@@ -34,7 +34,7 @@
 
 <div class="container">
     <div class="row">
-         <form class="form-horizontal action-form newteam" id="updateTeamDetails" action="updateTeamDetails" method="post" novalidate>
+         <form class="form-horizontal action-form newteam" id="updateTeamDetails" action="updateTeamDetails" method="post" >
 
             <fieldset class="form-content">
                 <!-- Address form -->
@@ -129,7 +129,7 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Type:<span class="mandatory-field">*</span></label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <select required id="teamType" name="teamType" class="input-xlarge form-control">
+                        <select id="teamType" name="teamType" class="input-xlarge form-control" required>
                             <option value="">--Select--</option>
                             <option value="Domestic">Domestic</option>
                             <option value="International">International</option>
@@ -138,11 +138,11 @@
                 </div>
 
                 <div class="row">
-                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Logo:<span class="mandatory-field">*</span></label>
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Logo:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <div class="input-group">
                           <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="teamLogo" aria-describedby="inputGroupFileAddon01" name="teamLogo" value="" required>
+                            <input type="file" class="custom-file-input" id="teamLogo" aria-describedby="inputGroupFileAddon01" name="teamLogo" value="" >
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                           </div>
                         </div>
@@ -152,7 +152,7 @@
                 <div class="row">
                     <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team Country:</label>
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <select required id="teamCountry" name="teamCountry" class="input-xlarge form-control">
+                        <select id="teamCountry" name="teamCountry" class="input-xlarge form-control" required>
                             <option value="">--Select--</option>
                             <% for(var i=0; i<countryList[0].length; i++) {%>
                                <%if (countryList[0][i].country_code.length > 0) { %>

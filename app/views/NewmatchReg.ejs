@@ -10,6 +10,7 @@
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+          <script src="/js/script.js"></script>
           <link rel="icon" href="/images/001-shutter.png">
 
 </head>
@@ -33,7 +34,9 @@
 
 <div class="container newmatch-section">
     <div class="row">
-         <form class="form-horizontal form-content" action="" method="" enctype="multipart/form-data">
+         <form class="form-horizontal form-content" action="addMatchDetails" method="POST" id="addMatchDetails">
+
+                <input type="hidden" name="playersDetails" id="playersDetails" value="" />
          
                 <h3>New Match Registration</h3>
 
@@ -42,9 +45,8 @@
                         <div class="row">
                             <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Tournament Name:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                <select required id="tournamentName" name="tournamentName" class="input-xlarge form-control">
+                                <select required id="tournamentName" name="tournamentName" class="input-xlarge form-control" onchange="selectTeams(this.value);">
                                     <option value="">--Select--</option>
-                                    <%= tournamentList[0] %>
                                     <% for(var i=0; i<tournamentList[0].length; i++) {%>
                                        <%if (tournamentList[0][i].tournament_name.length > 0) { %>
                                             <option value=<%= tournamentList[0][i].tournament_id %>><%= tournamentList[0][i].tournament_name %></option>
@@ -58,14 +60,9 @@
                         <div class="row">
                             <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 1:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                <select required id="teamOne" name="teamOne" class="input-xlarge form-control">
+                                <select required id="teamOne" name="teamOne" class="input-xlarge form-control" onchange="fetchPlayer('one',this.value);">
                                     <option value="">--Select--</option>
-                                    <% for(var i=0; i<teamsList[0].length; i++) {%>
-                                       <%if (teamsList[0][i].team_code.length > 0) { %>
-                                            <option value=<%= teamsList[0][i].team_code %>><%= teamsList[0][i].team_name %></option>
-                                               
-                                       <% } %>
-                                    <% } %>
+                                    
                                 </select>
                             </div>
                         </div>
@@ -73,28 +70,12 @@
                         <div class="row">
                             <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 2:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                <select required id="teamtwo" name="teamtwo" class="input-xlarge form-control">
+                                <select required id="teamtwo" name="teamtwo" class="input-xlarge form-control" onchange="fetchPlayer('two',this.value);">
                                     <option value="">--Select--</option>
-                                    <% for(var i=0; i<teamsList[0].length; i++) {%>
-                                       <%if (teamsList[0][i].team_code.length > 0) { %>
-                                            <option value=<%= teamsList[0][i].team_code %>><%= teamsList[0][i].team_name %></option>
-                                               
-                                       <% } %>
-                                    <% } %>
+                                    
                                 </select>
                             </div>
                         </div>
-
-                        <!-- <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 2:</label>
-                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                <select required id="" name="" class="input-xlarge form-control">
-                                    <option>India (From DB)</option>
-                                    <option>West Indies</option>
-                                    <option>England</option>
-                                </select>
-                            </div>
-                        </div> -->
 
                         <div class="row">
                             <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Match Type:<span class="mandatory-field">*</span></label>
@@ -119,16 +100,30 @@
                         </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Venue:<span class="mandatory-field">*</span></label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Stadium Name:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                <input name="venue" id="venue" type="text" placeholder="Venue" class="input-xlarge form-control" value="" required/>
+                                <input name="stadiumName" id="stadiumName" type="text" placeholder="Ground" class="input-xlarge form-control" value="" required/>
                             </div>
                         </div>
 
                         <div class="row">
-                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Stadium:<span class="mandatory-field">*</span></label>
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Match City:<span class="mandatory-field">*</span></label>
                             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                                <input name="stadium" id="stadium" type="text" placeholder="Ground" class="input-xlarge form-control" value="" required/>
+                                <input name="matchCity" id="matchCity" type="text" placeholder="Venue" class="input-xlarge form-control" value="" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Stadium Country:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <select required id="stadiumCountry" name="stadiumCountry" class="input-xlarge form-control">
+                                    <option value="">--Select--</option>
+                                    <% for(var i=0; i<countryList[0].length; i++) {%>
+                                       <%if (countryList[0][i].country_code.length > 0) { %>
+                                            <option value=<%= countryList[0][i].country_code %>><%= countryList[0][i].country_name %></option>      
+                                       <% } %>
+                                    <% } %>
+                                </select>
                             </div>
                         </div>
 
@@ -164,7 +159,7 @@
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 team-details-section">
-                        <div class="row">
+                        <div class="row team1-section">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <h6>Team 1 players list</h6>
                                 <table class="table player-list">
@@ -179,442 +174,14 @@
                                       </tr>
                                     </thead>
 
-                                    <tbody>
-                                      <tr>
-                                        <td>Virat Kohli</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>MS Dhoni</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply3</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply4</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply5</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply6</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply7</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply8</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply9</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply10</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply11</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
+                                    <tbody class="player-list-body-one">
                                       
                                     </tbody>
                                 </table>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row team2-section">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <h6>Team 2 players list</h6>
                                 <table class="table player-list">
@@ -629,435 +196,7 @@
                                       </tr>
                                     </thead>
 
-                                    <tbody>
-                                      <tr>
-                                        <td>Ply1</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply2</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply3</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply4</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply5</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply6</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply7</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply8</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply9</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply10</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td>Ply11</td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="caption" name="captionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="vicecaption" name="vicecaptionselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" id="" value="wicketkeeper" name="wicketkeeperselect2">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="substitute1" name="substitue">
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check form-check-inline">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" id="" value="playing1" name="playing">
-                                                </label>
-                                            </div>
-                                        </td>
-                                      </tr>
+                                    <tbody class="player-list-body-two">
                                       
                                     </tbody>
                                 </table>
@@ -1067,7 +206,7 @@
                 </div>
 
                 <div class="row">
-                    <input class="submitButton" type="submit" name="" id="" value="Submit">
+                    <input class="submitButton" onclick="createJson();" type="submit" name="" id="submitMatch" value="Submit">
                 </div>
         </form>
     </div>

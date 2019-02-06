@@ -27,6 +27,16 @@ module.exports = {
 		return sqlsp;
 	},
 
+
+	'INSERT_NEW_MATCH': function (formData) {
+
+		let sqlsp = `CALL proc_ins_match('`+formData[0]+`','`+formData[1]+`','`+formData[2]+`','`+formData[3]+`','`+formData[4]+`','`+formData[5]+`','`+formData[6]+`','`+formData[7]+`','`+formData[8]+`','`+formData[9]+`','`+formData[10]+`','`+formData[11]+`','`+formData[12]+`')`;
+
+		console.log("INSERT_NEW_MATCH call statement... "+sqlsp);
+
+		return sqlsp;
+	},
+
 	'UPDATE_TEAM_VALUES': function(formData) {
 
 		let sqlsp = `CALL proc_upd_team("`+formData[0]+`","`+formData[1]+`","`+formData[2]+`","`+formData[3]+`","`+formData[4]+`","`+formData[5]+`","`+formData[6]+`","`+formData[7]+`","`+formData[8]+`","`+formData[9]+`","`+formData[10]+`")`;
@@ -113,6 +123,20 @@ module.exports = {
 
 	'GET_SELECTED_PLAYER_VALS': function(playerId) {
 		let sqlQuery = "SELECT p.first_name, p.last_name, p.batting_hand, p.bowling_style, p.primary_team_code, p.player_status_flag, GROUP_CONCAT(CONCAT('''', pt.team_code , '''' )) as team_list, p.player_image, DATE_FORMAT(p.dob,'%Y-%m-%d'), p.country_code FROM player p, player_team pt WHERE p.player_id = pt.player_id AND p.player_id = '"+playerId+"'";
+		return sqlQuery;
+	},
+
+	'GET_PLAYERS_FOR_SELECTED_TEAMS': function(teamCode) {
+		let sqlQuery = "select p.player_id ,CONCAT(p.first_name,' ',p.last_name) AS player_name FROM player p, player_team pt WHERE p.player_id = pt.player_id AND p.player_status_flag = 'A'AND pt.team_code = '"+teamCode+"'";
+
+		return sqlQuery;
+	},
+
+	'GET_TEAMS_FOR_SELECTED_TOURNAMENT': function(tournamentCode) {
+		let sqlQuery = "SELECT t.team_code, t.team_name FROM team t, tournament_team tt WHERE t.team_code = tt.team_code AND tt.tournament_id =  '"+tournamentCode+"'";
+
+		console.log(sqlQuery);
+
 		return sqlQuery;
 	},
 

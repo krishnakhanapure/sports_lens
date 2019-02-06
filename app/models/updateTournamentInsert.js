@@ -19,6 +19,14 @@ buildQuery = (o) => {
 		//extractObject.push(o[newTournamentSPSchema[i]] || '');
 
 		if(newTournamentSPSchema[i] === "tournamentTeam") {
+
+			if(o[newTournamentSPSchema[i]] != undefined){
+
+				var teamArr = o[newTournamentSPSchema[i]];
+			}else {
+				teamArr= [];
+			}
+			
 			var teamArr = o[newTournamentSPSchema[i]];
 			var newStr = "";
 
