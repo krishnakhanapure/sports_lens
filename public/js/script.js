@@ -246,7 +246,7 @@ var createJson = () => {
   var getSubsStat = "";
   var getPlayStat = "";
 
-  var playerSectionArr = ['player-list-body-one', 'player-list-body-one'];
+  var playerSectionArr = ['player-list-body-one', 'player-list-body-two'];
 
   for(var j=0; j<playerSectionArr.length; j++) {
       $('.'+playerSectionArr[j]+' tr').each(function(e){
