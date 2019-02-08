@@ -353,6 +353,45 @@ exports.updateTeam = function(req, res) {
 	});						
 }
 
+exports.updateMatch = function(req, res) {
+	pool.getConnection((err, connection) => {
+		
+	    function queryTournament(){
+	      var defered = Q.defer();
+	      connection.query(queryStr.GET_TOURNAMENT_NAMES(),defered.makeNodeResolver());
+	      return defered.promise;
+	    } 
+
+	    function queryCountry(){
+	      var defered = Q.defer();
+	      connection.query(queryStr.GET_COUNTRIES(),defered.makeNodeResolver());
+	      return defered.promise;
+	    }
+
+	    function queryFormats(){
+	      var defered = Q.defer();
+	      connection.query(queryStr.GET_MATCH_FORMATS(),defered.makeNodeResolver());
+	      return defered.promise;
+	    }
+
+	    Q.all([queryTournament(), queryCountry(), queryFormats()]).then((results) => {
+	      connection.release();
+	      if(err) {
+	      	console.log("err in fetching from DB.. "+err);
+	        res.end();
+	      }
+	      else {
+	      	console.log(JSON.stringify(results[0]));
+	        res.render('updateMatch.ejs', {
+				tournamentList:results[0],
+				countryList:results[1],
+				formatList:results[2]
+			});
+	      }
+	    });
+	});							
+}
+
 exports.getSelTeamValues = function(req, res) {
 
 	var teamCode = req.query.teamCode;
@@ -367,6 +406,46 @@ exports.getSelTeamValues = function(req, res) {
 			} else {
 				res.send(result);
 				console.log("team details... "+JSON.stringify(result));
+				
+			}
+		});		
+	});					
+}
+
+exports.getMatchesForSelectedTournament = function(req, res) {
+
+	var tournamentCode = req.query.tournamentCode;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.GET_MATCHES_FROM_TOURNAMENT(tournamentCode), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+				res.send(result);
+				console.log("match details... "+JSON.stringify(result));
+				
+			}
+		});		
+	});					
+}
+
+exports.getMatchesDetails = function(req, res) {
+
+	var MatchCode = req.query.MatchCode;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.GET_MATCHES_DETAILS(MatchCode), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+				res.send(result);
+				console.log("match data details... "+JSON.stringify(result));
 				
 			}
 		});		

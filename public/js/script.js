@@ -223,7 +223,7 @@ var fetchPlayer = (team, val) => {
           if (data.hasOwnProperty(key)) {
             var val = data[key];
             
-            playerSection += '<tr for='+val.player_id+'><td>'+val.player_name+'</td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input captainCheck" type="radio" id="" value="'+val.player_id+'" name="captionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input vcCheck" type="radio" id="" value="'+val.player_id+'" name="vicecaptionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input wkCheck" type="radio" id="" value="'+val.player_id+'" name="wicketkeeperselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input subsCheck" type="checkbox" id="" value="substitute1" name="substitue'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input playCheck" type="checkbox" id="" value="playing1" name="playing'+team+'"></label></div></td></tr>'
+            playerSection += '<tr for='+val.player_id+'><td>'+val.player_name+'</td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input captainCheck" type="radio" id="" value="'+val.player_id+'" capRadio="'+val.player_id+'" name="captionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input vcCheck" type="radio" id="" value="'+val.player_id+'" vcapRadio="'+val.player_id+'" name="vicecaptionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input wkCheck" type="radio" id="" wkRadio="'+val.player_id+'" value="'+val.player_id+'" name="wicketkeeperselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input subsCheck" type="checkbox" id="" subsCheck="'+val.player_id+'" value="substitute1" name="substitue'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input playCheck" type="checkbox" id="" playCheck="'+val.player_id+'" value="playing1" name="playing'+team+'"></label></div></td></tr>'
 
           }
         }
@@ -295,3 +295,77 @@ var createJson = () => {
     document.getElementById('playersDetails').value = jsonStr;
 }
 
+var selectMatchDetails = (val) => {
+
+  console.log("val.. "+val);
+    
+    $.ajax({
+      type: 'GET',
+      data: { tournamentCode : val },
+      url: '/getMatchesForSelectedTournament',
+      success: function(data) {
+
+        var teamSection = '<option value="">--Select--</option>';
+
+        for (var key in data) {
+          if (data.hasOwnProperty(key)) {
+            var val = data[key];
+            
+            teamSection += '<option value="'+val.match_id+'">'+val.match_gen_name+'</option>';
+
+          }
+        }
+          $('#matchName').html(teamSection);
+      
+      }
+    });
+}
+
+var fetchMatchDetails = (val) => {
+
+  console.log("val.. "+val);
+    
+    $.ajax({
+      type: 'GET',
+      data: { MatchCode : val },
+      url: '/getMatchesDetails',
+      success: function(data) {
+
+        var D = document;
+        D.getElementById('teamOne').value = data[0]["team_a"];
+        D.getElementById('teamtwo').value = data[0]["team_b"];
+        D.getElementById('matchType').value = data[0]["match_form_code"];
+
+        $('#matchDate').val(data[0][Object.keys(data[0])[3]]);
+
+        D.getElementById('stadiumName').value = data[0]["stadium_name"];
+        D.getElementById('matchCity').value = data[0]["stadium_city"];
+        D.getElementById('stadiumCountry').value = data[0]["stadium_country"];
+        D.getElementById('umpOne').value = data[0]["umpire_a"];
+        D.getElementById('umpTwo').value = data[0]["umpire_b"];
+        D.getElementById('referee').value = data[0]["referee_name"];
+        D.getElementById('analyst').value = data[0]["analyst_name"];
+
+        fetchPlayer('one',data[0]["team_a"]);
+        fetchPlayer('two',data[0]["team_b"]);
+
+        var playerListJSON = JSON.parse(data[0]["playing_squad_json"]);
+
+        var jsonList = playerListJSON["teams"]["teama"]["players"];
+        for (var key=1; key<=16; key++) {
+            var keyVal = "player"+key;
+            var val = jsonList[keyVal];
+            
+            if(val.role == "C"){
+
+            }else if(val.role == "VC"){
+
+            }
+            console.log(val);
+
+        }
+
+
+      }
+    });
+}

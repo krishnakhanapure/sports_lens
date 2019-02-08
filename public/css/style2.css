@@ -229,3 +229,7 @@ table.player-list td, table.player-list th {
   max-height: 250px;
   scroll-behavior: smooth;
   overflow-y: scroll; }
+
+.update-selection {
+  width: 75%;
+  margin: 0 auto; }

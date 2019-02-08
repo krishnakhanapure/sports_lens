@@ -26,6 +26,9 @@ module.exports = function (app) {
     app.get('/getSelectedPlayerValues', home.getSelectedPlayerValues);
     app.get('/getPlayersForSelectedTeam', home.getPlayersForSelectedTeam);
     app.get('/getTeamsForSelectedTournament', home.getTeamsForSelectedTournament);
+    app.get('/updateMatch', home.updateMatch);
+    app.get('/getMatchesForSelectedTournament', home.getMatchesForSelectedTournament);
+    app.get('/getMatchesDetails', home.getMatchesDetails);
 
     //post Calls
     app.post('/newTeamData', home.newTeamData);

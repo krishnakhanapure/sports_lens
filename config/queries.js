@@ -140,6 +140,22 @@ module.exports = {
 		return sqlQuery;
 	},
 
+	'GET_MATCHES_FROM_TOURNAMENT': function(tournamentCode) {
+		let sqlQuery = "SELECT mm.match_id, CONCAT(mm.match_form_code,' ',(SELECT @curRank := @curRank + 1 AS match_order FROM match_master mm2, (SELECT @curRank := 0) r WHERE mm2.tournament_id = t.tournament_id AND mm.match_id = mm2.match_id ORDER BY match_date),' of ',(SELECT count(match_id) FROM match_master mm1 WHERE mm1.tournament_id = t.tournament_id),' - ',t.tournament_name) AS match_gen_name FROM match_master mm, tournament t WHERE mm.tournament_id = t.tournament_id AND t.tournament_id ='"+tournamentCode+"'";
+
+		console.log(sqlQuery);
+
+		return sqlQuery;
+	},
+
+	'GET_MATCHES_DETAILS': function(MatchCode) {
+		let sqlQuery = "SELECT team_a, team_b, match_form_code, DATE_FORMAT(match_date,'%Y-%m-%d'), stadium_name, stadium_city, stadium_country, umpire_a, umpire_b, referee_name, analyst_name, playing_squad_json FROM match_master mm, stadium s WHERE s.stadium_id = mm.stadium_id AND mm.match_id ='"+MatchCode+"'";
+
+		console.log(sqlQuery);
+
+		return sqlQuery;
+	},
+
 	'CHECK_TEAM_CODE_DUPLICATION': function(codeToTest) {
 
 		let sqlsp = `SELECT func_chk_team_code("`+codeToTest+`")`;

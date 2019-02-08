@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>New Match Registration</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+          <link rel="stylesheet" type="text/css" href="/css/style2.css" />
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+          <script src="/js/script.js"></script>
+          <link rel="icon" href="/images/001-shutter.png">
+
+</head>
+<body>
+
+    <div class="logo-banner row">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 logo-section-img">
+          <a href="/homePage"><img src="/images/001-shutter-name.png"/></a>
+        </div>
+        <div class="col-lg-8 col-md-7 col-sm-3 col-xs-3">
+          <p class="logo-name"></p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 logo-section-img user-section">
+          <img src="/images/002-user.svg"/>
+          <div>
+            <p>Welcome, Admin</p>
+            <p><a>Settings</a><a>Log Out</a></p>
+          </div>
+        </div>
+    </div>
+
+<div class="container newmatch-section">
+    <div class="row">
+         <form class="form-horizontal form-content" action="addMatchDetails" method="POST" id="addMatchDetails">
+
+                <input type="hidden" name="playersDetails" id="playersDetails" value="" />
+         
+                <h3>Update Match Details</h3>
+
+                <div class="update-selection">   
+                    <div class="row">
+                        <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="text-align: right">Select A Tournament:<span class="mandatory-field">*</span></label>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <select required id="tournamentName" name="tournamentName" class="input-xlarge form-control" onchange="selectMatchDetails(this.value);selectTeams(this.value);">
+                                <option value="">--Select--</option>
+                                <% for(var i=0; i<tournamentList[0].length; i++) {%>
+                                   <%if (tournamentList[0][i].tournament_name.length > 0) { %>
+                                        <option value=<%= tournamentList[0][i].tournament_id %>><%= tournamentList[0][i].tournament_name %></option>
+                                           
+                                   <% } %>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="text-align: right">Select A Match:<span class="mandatory-field">*</span></label>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <select required id="matchName" name="matchName" class="input-xlarge form-control" onchange="fetchMatchDetails(this.value);">
+                                <option value="">--Select--</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 border-secondary border-right">
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 1:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <select required id="teamOne" name="teamOne" class="input-xlarge form-control" onchange="fetchPlayer('one',this.value);">
+                                    <option value="">--Select--</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Team 2:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <select required id="teamtwo" name="teamtwo" class="input-xlarge form-control" onchange="fetchPlayer('two',this.value);">
+                                    <option value="">--Select--</option>
+                                    
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Match Type:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <select required id="matchType" name="matchType" class="input-xlarge form-control">
+                                    <option value="">--Select--</option>
+                                    <% for(var i=0; i<formatList[0].length; i++) {%>
+                                       <%if (formatList[0][i].match_form_name.length > 0) { %>
+                                            <option value=<%= formatList[0][i].match_form_code %>><%= formatList[0][i].match_form_name %></option>
+                                               
+                                       <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Match Date:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                 <input required format="mm-dd-yyyy" id="matchDate" name="matchDate" type="date" class="input-xlarge form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Stadium Name:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <input name="stadiumName" id="stadiumName" type="text" placeholder="Ground" class="input-xlarge form-control" value="" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Match City:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <input name="matchCity" id="matchCity" type="text" placeholder="Venue" class="input-xlarge form-control" value="" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Stadium Country:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <select required id="stadiumCountry" name="stadiumCountry" class="input-xlarge form-control">
+                                    <option value="">--Select--</option>
+                                    <% for(var i=0; i<countryList[0].length; i++) {%>
+                                       <%if (countryList[0][i].country_code.length > 0) { %>
+                                            <option value=<%= countryList[0][i].country_code %>><%= countryList[0][i].country_name %></option>      
+                                       <% } %>
+                                    <% } %>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Umpire 1:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <input name="umpOne" id="umpOne" type="text" placeholder="Umpire 1" class="input-xlarge form-control" value="" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Umpire 2:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <input name="umpTwo" id="umpTwo" type="text" placeholder="Umpire 2" class="input-xlarge form-control" value="" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Referee:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <input name="referee" id="referee" type="text" placeholder="Referee" class="input-xlarge form-control" value="" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Analyst Name:<span class="mandatory-field">*</span></label>
+                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                <input required name="analyst" id="analyst" type="text" placeholder="Analyst Name"
+                                class="input-xlarge form-control" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 team-details-section">
+                        <div class="row team1-section">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h6>Team 1 players list</h6>
+                                <table class="table player-list">
+                                    <thead>
+                                      <tr>
+                                        <th>Player</th>
+                                        <th>C</th>
+                                        <th>VC</th>
+                                        <th>WK</th>
+                                        <th>Substitute</th>
+                                        <th>Playing</th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody class="player-list-body-one">
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row team2-section">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h6>Team 2 players list</h6>
+                                <table class="table player-list">
+                                    <thead>
+                                      <tr>
+                                        <th>Player</th>
+                                        <th>C</th>
+                                        <th>VC</th>
+                                        <th>WK</th>
+                                        <th>Substitute</th>
+                                        <th>Playing</th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody class="player-list-body-two">
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <input class="submitButton" onclick="createJson();" type="submit" name="" id="submitMatch" value="Submit">
+                </div>
+        </form>
+    </div>
+</div>
+
+<footer class="footer-section">
+    <p>Copyright © 2018 SportsLens</p>
+</footer>
+
+</body>
+</html>
