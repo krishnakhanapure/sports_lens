@@ -1,10 +1,5 @@
 var updateTeamName = "";
 
-// $(document).ready(function() {
-//     console.log( "ready!" );
-//     $('')
-// });
-
 function generateCode() {
     $.get('/getTeamRandomCode', function(data){
         console.log(data + JSON.stringify(data));
@@ -223,7 +218,7 @@ var fetchPlayer = (team, val) => {
           if (data.hasOwnProperty(key)) {
             var val = data[key];
             
-            playerSection += '<tr for='+val.player_id+'><td>'+val.player_name+'</td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input captainCheck" type="radio" id="" value="'+val.player_id+'" capRadio="'+val.player_id+'" name="captionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input vcCheck" type="radio" id="" value="'+val.player_id+'" vcapRadio="'+val.player_id+'" name="vicecaptionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input wkCheck" type="radio" id="" wkRadio="'+val.player_id+'" value="'+val.player_id+'" name="wicketkeeperselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input subsCheck" type="checkbox" id="" subsCheck="'+val.player_id+'" value="substitute1" name="substitue'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input playCheck" type="checkbox" id="" playCheck="'+val.player_id+'" value="playing1" name="playing'+team+'"></label></div></td></tr>'
+            playerSection += '<tr for='+val.player_id+'><td>'+val.player_name+'</td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input captainCheck" onclick="checkedValidation(this);" type="radio" id="" value="'+val.player_id+'" capRadio="'+val.player_id+'" name="captionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input vcCheck" onclick="checkedValidation(this);" type="radio" id="" value="'+val.player_id+'" vcapRadio="'+val.player_id+'" name="vicecaptionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input wkCheck" type="radio" id="" onclick="checkedValidation(this);" wkRadio="'+val.player_id+'" value="'+val.player_id+'" name="wicketkeeperselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input subsCheck" type="checkbox" id="" subsCheck="'+val.player_id+'" value="substitute1" name="substitue'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input playCheck" type="checkbox" id="" playCheck="'+val.player_id+'" value="playing1" name="playing'+team+'"></label></div></td></tr>'
 
           }
         }
@@ -349,23 +344,37 @@ var fetchMatchDetails = (val) => {
         fetchPlayer('one',data[0]["team_a"]);
         fetchPlayer('two',data[0]["team_b"]);
 
-        var playerListJSON = JSON.parse(data[0]["playing_squad_json"]);
+        // var playerListJSON = JSON.parse(data[0]["playing_squad_json"]);
 
-        var jsonList = playerListJSON["teams"]["teama"]["players"];
-        for (var key=1; key<=16; key++) {
-            var keyVal = "player"+key;
-            var val = jsonList[keyVal];
+        // var jsonList = playerListJSON["teams"]["teama"]["players"];
+        // for (var key=1; key<=16; key++) {
+        //     var keyVal = "player"+key;
+        //     var val = jsonList[keyVal];
             
-            if(val.role == "C"){
+        //     if(val.role == "C"){
 
-            }else if(val.role == "VC"){
+        //     }else if(val.role == "VC"){
 
-            }
-            console.log(val);
+        //     }
+        //     console.log(val);
 
-        }
-
+        // }
 
       }
     });
+}
+
+var checkedValidation = (ele) => {
+
+  var attr = "";
+
+  if(ele.hasAttribute("vcapradio")){
+    attr = ele.getAttribute("vcapradio");
+    $('input[capRadio="'+attr+'"]'). prop("checked", false);
+
+  }else if(ele.hasAttribute("capRadio")){
+    attr = ele.getAttribute("capRadio");
+    $('input[vcapradio="'+attr+'"]'). prop("checked", false);
+
+  }
 }
