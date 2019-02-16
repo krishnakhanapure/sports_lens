@@ -218,7 +218,7 @@ var fetchPlayer = (team, val) => {
           if (data.hasOwnProperty(key)) {
             var val = data[key];
             
-            playerSection += '<tr for='+val.player_id+'><td>'+val.player_name+'</td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input captainCheck" onclick="checkedValidation(this);" type="radio" id="" value="'+val.player_id+'" capRadio="'+val.player_id+'" name="captionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input vcCheck" onclick="checkedValidation(this);" type="radio" id="" value="'+val.player_id+'" vcapRadio="'+val.player_id+'" name="vicecaptionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input wkCheck" type="radio" id="" onclick="checkedValidation(this);" wkRadio="'+val.player_id+'" value="'+val.player_id+'" name="wicketkeeperselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input subsCheck" type="checkbox" id="" subsCheck="'+val.player_id+'" value="substitute1" name="substitue'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input playCheck" type="checkbox" id="" playCheck="'+val.player_id+'" value="playing1" name="playing'+team+'"></label></div></td></tr>'
+            playerSection += '<tr for='+val.player_id+'><td>'+val.player_name+'</td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input captainCheck" onclick="checkedValidation(this);" type="radio" id="" value="'+val.player_id+'" capRadio="'+val.player_id+'" name="captionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input vcCheck" onclick="checkedValidation(this);" type="radio" id="" value="'+val.player_id+'" vcapRadio="'+val.player_id+'" name="vicecaptionselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input wkCheck" type="radio" id="" onclick="checkedValidation(this);" wkRadio="'+val.player_id+'" value="'+val.player_id+'" name="wicketkeeperselect'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input subsCheck" type="checkbox" id="" onclick="playerValidation(this);" subsCheck="'+val.player_id+'" value="substitute1" name="substitue'+team+'"></label></div></td><td><div class="form-check form-check-inline"><label class="form-check-label"><input class="form-check-input playCheck" type="checkbox" id="" onclick="playerValidation(this);" playCheck="'+val.player_id+'" value="playing1" name="playing'+team+'"></label></div></td></tr>'
 
           }
         }
@@ -234,31 +234,43 @@ var fetchPlayer = (team, val) => {
 
 var createJson = () => {
 
-  var jsonStr = '{"teams": {"teama": {"teamCode": "'+$('#teamOne').val()+'","players": {';
+  if($('input[name="playingone"]:checked').length < 11 ) {
+    alert("Please add 11 playing players for Team one.");
+    return false;
+
+  }
+  if($('input[name="playingtwo"]:checked').length < 11) {
+    alert("Please add 11 playing players for Team one.");
+    return false;
+  }
+   
+
+  var jsonStr = '{"teams": {"teama": {"teamCode": "'+$('#teamOne').val()+'","players": [';
   var getCaptStat = $("input[name='captionselect']:checked").val();
   var getVCaptStat = $("input[name='vicecaptionselect']:checked").val();
   var getWKStat = $("input[name='wicketkeeperselect']:checked").val();
   var getSubsStat = "";
   var getPlayStat = "";
+  var finalJSON = "";
 
   var playerSectionArr = ['player-list-body-one', 'player-list-body-two'];
 
   for(var j=0; j<playerSectionArr.length; j++) {
       $('.'+playerSectionArr[j]+' tr').each(function(e){
 
-          var roleCheck = "", VCCheck = "", WKCheck = "" , isSubsPlay = "", idPlay = "";
+          var capCheck = "", VCCheck = "", WKCheck = "" , isSubsPlay = "", idPlay = "";
 
           if($($(this.childNodes[1]).find("input")).is(":checked")) {
-            roleCheck = "C";
+            capCheck = "Y";
 
-          }else if($($(this.childNodes[2]).find("input")).is(":checked")) {
-            roleCheck = "VC";
+          }
+          if($($(this.childNodes[2]).find("input")).is(":checked")) {
+            VCCheck = "Y";
 
-          }else if($($(this.childNodes[3]).find("input")).is(":checked")) {
-            roleCheck = "WK";
+          } 
+          if($($(this.childNodes[3]).find("input")).is(":checked")) {
+            WKCheck = "Y";
 
-          } else {
-            roleCheck = "";
           }
 
           if($($(this.childNodes[4]).find("input")).is(":checked")) {
@@ -272,22 +284,27 @@ var createJson = () => {
           }
 
           if(isSubsPlay != "") {
-            if(e==15)
-            jsonStr+= '"player'+(e+1)+'": {"playerId": "'+this.attributes["for"].value+'","role": "'+roleCheck+'","subsPlay": "'+isSubsPlay+'"}';
-          else
-            jsonStr+= '"player'+(e+1)+'": {"playerId": "'+this.attributes["for"].value+'","role": "'+roleCheck+'","subsPlay": "'+isSubsPlay+'"},';
+            // if(e==15)
+            //   jsonStr+= '{"playerId": "'+this.attributes["for"].value+'","cap": "'+capCheck+'","vcap": "'+VCCheck+'","wk": "'+WKCheck+'","subsPlay": "'+isSubsPlay+'"}';
+            // else
+              jsonStr+= '{"playerId": "'+this.attributes["for"].value+'","cap": "'+capCheck+'","vcap": "'+VCCheck+'","wk": "'+WKCheck+'","subsPlay": "'+isSubsPlay+'"},';
           }
           
       });
 
-      if(j == 0)
-        jsonStr+='}}, "teamb": {"teamCode": "'+$('#teamtwo').val()+'","players": {';
-      else
-        jsonStr+='}}}}';
+      if(j == 0){
+        jsonStr = jsonStr.substring(0, jsonStr.length-1);
+        jsonStr+=']}, "teamb": {"teamCode": "'+$('#teamtwo').val()+'","players": [';
+      }
+      else{
+        jsonStr = jsonStr.substring(0, jsonStr.length-1);
+        jsonStr+=']}}}';
+      }
 
     }
 
     document.getElementById('playersDetails').value = jsonStr;
+    return true;
 }
 
 var selectMatchDetails = (val) => {
@@ -371,10 +388,55 @@ var checkedValidation = (ele) => {
   if(ele.hasAttribute("vcapradio")){
     attr = ele.getAttribute("vcapradio");
     $('input[capRadio="'+attr+'"]'). prop("checked", false);
+    //$('input[subscheck="'+attr+'"]'). prop("disabled", true);
 
   }else if(ele.hasAttribute("capRadio")){
     attr = ele.getAttribute("capRadio");
     $('input[vcapradio="'+attr+'"]'). prop("checked", false);
+    //$('input[subscheck="'+attr+'"]'). prop("disabled", true);
 
+  }else if(ele.hasAttribute("wkradio")){
+    attr = ele.getAttribute("wkradio");
+    //$('input[subscheck="'+attr+'"]'). prop("disabled", true);
+    
   }
 }
+
+var playerValidation = (ele) => {
+
+  if(ele.classList.contains("playCheck")) {
+
+    let attr = ele.getAttribute("playCheck"), maxPlayerCheck = "";
+
+    if(ele.name == "playingone") {
+      maxPlayerCheck = ($('input[name="playingone"]:checked').length > 11) ? "maxReached" : "";
+    }else {
+      maxPlayerCheck = ($('input[name="playingtwo"]:checked').length > 11) ? "maxReached" : "";
+    }
+
+    if(maxPlayerCheck === "maxReached") {
+      alert("Playing Can be Maximum of Only 11 Players.");
+      ele.checked = false;
+    }else {
+      $('input[subscheck="'+attr+'"]').prop("checked", false);
+    }
+
+   }else {
+
+      let attrVal = ele.getAttribute("subscheck");
+
+      if($('input[vcapradio="'+attrVal+'"]').is(":checked") || $('input[capRadio="'+attrVal+'"]').is(":checked") || $('input[wkradio="'+attrVal+'"]').is(":checked")) {
+
+        alert("Caption, Vice Caption or WicketKeeper Cannot be a Substitute.");
+        ele.checked = false;
+
+      }else {
+        $('input[playcheck="'+attrVal+'"]').prop("checked", false);
+      }
+
+   }
+
+}
+
+
+

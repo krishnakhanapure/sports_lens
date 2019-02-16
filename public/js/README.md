@@ -2,173 +2,237 @@
   "teams": {
     "teama": {
       "teamCode": "IND",
-      "players": {
-        "player1": {
+      "players": [
+         {
           "playerId": 50000007,
-          "role": "C",
+          "cap": "Y",
+          "vcap": "",
+          "wk": "Y",
           "subsPlay": "play"
         },
-        "player2": {
+         {
           "playerId": 50000009,
-          "role": "VC",
+          "cap": "",
+          "vcap": "Y",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player3": {
+        {
           "playerId": 50000009,
-          "role": "WK",
+          "cap": "",
+          "vcap": "",
+          "wk": "Y",
           "subsPlay": "play"
         },
-        "player4": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player5": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player6": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player7": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player8": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player9": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player10": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player11": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player12": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         },
-        "player13": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         },
-        "player14": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         },
-        "player15": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         },
-        "player16": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         }
-      }
+      ]
     },
     "teamb": {
       "teamCode": "AUS",
-      "players": {
-        "player1": {
+      "players": [
+        {
           "playerId": "50000010",
-          "role": "C",
+          "cap": "Y",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player2": {
+        {
           "playerId": "50000011",
-          "role": "VC",
+          "cap": "Y",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player3": {
+        {
           "playerId": "50000011",
-          "role": "WK",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player4": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "Y",
           "subsPlay": "play"
         },
-        "player5": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player6": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player7": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player8": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player9": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player10": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player11": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "play"
         },
-        "player12": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         },
-        "player13": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         },
-        "player14": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         },
-        "player15": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         },
-        "player16": {
+        {
           "playerId": "",
-          "role": "",
+          "cap": "",
+          "vcap": "",
+          "wk": "",
           "subsPlay": "subs"
         }
-      }
+      ]
     }
   }
 }
