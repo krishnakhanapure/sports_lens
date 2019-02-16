@@ -39,5 +39,6 @@ module.exports = function (app) {
     app.post('/updateTournamentDetails', home.updateTournamentDetails);
     app.post('/updatePlayerData', home.updatePlayerData);
     app.post('/addMatchDetails', home.addMatchDetails);
+    app.post('/updateMatchDetails', home.updateMatchDetails);
     
 }

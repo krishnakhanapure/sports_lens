@@ -64,6 +64,15 @@ module.exports = {
 		return sqlsp;
 	},
 
+	'UPDATE_NEW_MATCH': function(formData) {
+
+		let sqlsp = `CALL proc_upd_match('`+formData[0]+`','`+formData[1]+`','`+formData[2]+`','`+formData[3]+`','`+formData[4]+`','`+formData[5]+`','`+formData[6]+`','`+formData[7]+`','`+formData[8]+`','`+formData[9]+`','`+formData[10]+`','`+formData[11]+`','`+formData[12]+`')`;
+
+		console.log("UPDATE_NEW_MATCH call statement... "+sqlsp);
+
+		return sqlsp;
+	},
+
 	'GET_TEAM_NAMES_CODES': function() {
 
 		let sqlQuery = "select distinct team_name,team_code,team_id from team";
@@ -141,7 +150,7 @@ module.exports = {
 	},
 
 	'GET_MATCHES_FROM_TOURNAMENT': function(tournamentCode) {
-		let sqlQuery = "SELECT mm.match_id, CONCAT(mm.match_form_code,' ',(SELECT @curRank := @curRank + 1 AS match_order FROM match_master mm2, (SELECT @curRank := 0) r WHERE mm2.tournament_id = t.tournament_id AND mm.match_id = mm2.match_id ORDER BY match_date),' of ',(SELECT count(match_id) FROM match_master mm1 WHERE mm1.tournament_id = t.tournament_id),' - ',t.tournament_name) AS match_gen_name FROM match_master mm, tournament t WHERE mm.tournament_id = t.tournament_id AND t.tournament_id ='"+tournamentCode+"'";
+		let sqlQuery = "SELECT mm.match_id, CONCAT(mm.match_form_code,' ', (SELECT t.match_order FROM (SELECT @curRank := @curRank + 1 AS match_order, mm2.match_id m_id FROM match_master mm2, (SELECT @curRank := 0) r WHERE mm2.tournament_id = '"+tournamentCode+"' ORDER BY match_date) t WHERE t.m_id = mm.match_id),' of ',(SELECT count(match_id) FROM match_master mm1 WHERE mm1.tournament_id = t.tournament_id),' - ',t.tournament_name) AS match_gen_name FROM match_master mm, tournament t WHERE mm.tournament_id = t.tournament_id AND mm.match_progress_code = 'N' AND t.tournament_id ='"+tournamentCode+"' ORDER BY mm.match_date;";
 
 		console.log(sqlQuery);
 

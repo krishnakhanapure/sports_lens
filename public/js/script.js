@@ -1,4 +1,5 @@
 var updateTeamName = "";
+let checkSecCall = false;
 
 function generateCode() {
     $.get('/getTeamRandomCode', function(data){
@@ -202,7 +203,7 @@ var selectTeams = (val) => {
     });
 }
 
-var fetchPlayer = (team, val) => {
+var fetchPlayer = (team, val, fromUpdate, jsonList) => {
 
   console.log("val.. "+val);
     
@@ -222,12 +223,60 @@ var fetchPlayer = (team, val) => {
 
           }
         }
+
         if(team == "one"){
           $('.player-list-body-one').html(playerSection);
+
         }else {
           $('.player-list-body-two').html(playerSection);
+
         }
-        
+
+        if(fromUpdate == true) {
+
+          let eachTeamList = "";
+          let teamArr = "";
+
+          if(team == "one"){
+            teamArr = "player-list-body-one";
+            eachTeamList = jsonList["teams"]["teama"]["players"];
+          }
+
+          else{
+            teamArr = "player-list-body-two";
+            eachTeamList = jsonList["teams"]["teamb"]["players"];
+          }
+
+          for (var key in eachTeamList) {
+             if (eachTeamList.hasOwnProperty(key)) {
+                let playerID = eachTeamList[key].playerId;
+
+                if(eachTeamList[key].cap == "Y"){
+                  $('.'+teamArr+' input[capradio="'+playerID+'"]').prop('checked',true);
+
+                }if(eachTeamList[key].vcap == "Y") {
+                  $('.'+teamArr+' input[vcapradio="'+playerID+'"]').prop('checked',true);
+
+                }if(eachTeamList[key].wk == "Y") {
+                  $('.'+teamArr+' input[wkradio="'+playerID+'"]').prop('checked',true);
+
+                }
+
+                if(eachTeamList[key].subsPlay == "play") {
+                  $('.'+teamArr+' input[playcheck="'+playerID+'"]').prop('checked',true);
+                  
+                }else {
+                  $('.'+teamArr+' input[subscheck="'+playerID+'"]').prop('checked',true);
+
+                }
+             }
+          }
+        } 
+
+        if(!checkSecCall){
+          fetchPlayer('two',jsonList["teams"]["teamb"].teamCode, true, jsonList);
+          checkSecCall = true;
+        }
       }
     });
 }
@@ -235,12 +284,42 @@ var fetchPlayer = (team, val) => {
 var createJson = () => {
 
   if($('input[name="playingone"]:checked').length < 11 ) {
-    alert("Please add 11 playing players for Team one.");
+    alert("Please add 11 playing players for Team 1.");
     return false;
 
   }
   if($('input[name="playingtwo"]:checked').length < 11) {
-    alert("Please add 11 playing players for Team one.");
+    alert("Please add 11 playing players for Team 2.");
+    return false;
+  }
+
+  if($('input[name="captionselectone"]:checked').length == 0 ) {
+    alert("Please Select a Caption for Team 1.");
+    return false;
+  }
+
+  if($('input[name="captionselecttwo"]:checked').length == 0) {
+    alert("Please Select a Caption for Team 2.");
+    return false;
+  }
+
+  if($('input[name="vicecaptionselectone"]:checked').length == 0) {
+    alert("Please Select a Vice Caption for Team 1.");
+    return false;
+  }
+
+  if($('input[name="vicecaptionselecttwo"]:checked').length == 0) {
+    alert("Please Select a Vice Caption for Team 2.");
+    return false;
+  }
+
+  if($('input[name="wicketkeeperselectone"]:checked').length == 0) {
+    alert("Please Select a Wicket Keeper for Team 1.");
+    return false;
+  }
+
+  if($('input[name="wicketkeeperselecttwo"]:checked').length == 0) {
+    alert("Please Select a Wicket Keeper for Team 2.");
     return false;
   }
    
@@ -358,24 +437,12 @@ var fetchMatchDetails = (val) => {
         D.getElementById('referee').value = data[0]["referee_name"];
         D.getElementById('analyst').value = data[0]["analyst_name"];
 
-        fetchPlayer('one',data[0]["team_a"]);
-        fetchPlayer('two',data[0]["team_b"]);
+        var playerListJSON = JSON.parse(data[0]["playing_squad_json"]);
+        //var jsonList = playerListJSON["teams"]["teama"]["players"];
 
-        // var playerListJSON = JSON.parse(data[0]["playing_squad_json"]);
+        console.log("playerListJSON.. "+JSON.stringify(playerListJSON));
 
-        // var jsonList = playerListJSON["teams"]["teama"]["players"];
-        // for (var key=1; key<=16; key++) {
-        //     var keyVal = "player"+key;
-        //     var val = jsonList[keyVal];
-            
-        //     if(val.role == "C"){
-
-        //     }else if(val.role == "VC"){
-
-        //     }
-        //     console.log(val);
-
-        // }
+        fetchPlayer('one',data[0]["team_a"], true, playerListJSON);
 
       }
     });
@@ -383,21 +450,25 @@ var fetchMatchDetails = (val) => {
 
 var checkedValidation = (ele) => {
 
-  var attr = "";
+  var attr = ele.value;
+
+  if($('input[subscheck="'+attr+'"]').is(":checked")) {
+    alert("A Substitute Cannot be Caption, Vice Caption or WicketKeeper.");
+    $(ele).prop("checked", false)
+    return;
+  }
 
   if(ele.hasAttribute("vcapradio")){
     attr = ele.getAttribute("vcapradio");
     $('input[capRadio="'+attr+'"]'). prop("checked", false);
-    //$('input[subscheck="'+attr+'"]'). prop("disabled", true);
+    
 
   }else if(ele.hasAttribute("capRadio")){
     attr = ele.getAttribute("capRadio");
     $('input[vcapradio="'+attr+'"]'). prop("checked", false);
-    //$('input[subscheck="'+attr+'"]'). prop("disabled", true);
 
   }else if(ele.hasAttribute("wkradio")){
     attr = ele.getAttribute("wkradio");
-    //$('input[subscheck="'+attr+'"]'). prop("disabled", true);
     
   }
 }

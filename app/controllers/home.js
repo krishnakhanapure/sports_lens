@@ -9,7 +9,7 @@ var updateTeamInsert = require('../models/updateTeamInsert.js');
 var updateTournamentInsert = require('../models/updateTournamentInsert.js');
 var updatePlayerInsert = require('../models/updatePlayerInsert.js');
 var newMatchInsert = require('../models/newMatchInsert.js');
-
+var updateMatchInsert = require('../models/updateMatchInsert.js');
 exports.login = function(req, res) {
 		
     res.render('signup.ejs',  { serverMsg : "" });
@@ -709,6 +709,27 @@ exports.addMatchDetails = function(req, res) {
 				res.render('redirectPage.ejs', { 
 					Message : "Data Entered Successfully!",
 					redirectRoute : "/newMatch"
+
+				});
+			}
+		});		
+	});					
+}
+
+exports.updateMatchDetails = function(req, res) {
+
+    pool.getConnection((err, connection) => {
+		connection.query(updateMatchInsert.buildQuery(req.body), (err, rows, fields) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and insert query");
+				console.log(err);
+				
+			} else {
+				console.log('data entered successfully');
+				res.render('redirectPage.ejs', { 
+					Message : "Data Entered Successfully!",
+					redirectRoute : "/updateMatch"
 
 				});
 			}
