@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Add new User</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+          <script src="/js/script.js"></script>
+
+          <link rel="stylesheet" type="text/css" href="/css/style2.css" />
+          <link rel="icon" href="/images/001-shutter.png">
+
+</head>
+<body>
+
+    <div class="logo-banner row">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 logo-section-img">
+          <a href="/homePage"><img src="/images/001-shutter-name.png"/></a>
+        </div>
+        <div class="col-lg-8 col-md-7 col-sm-3 col-xs-3">
+          <p class="logo-name"></p>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 logo-section-img user-section">
+          <img src="/images/002-user.svg"/>
+          <div>
+            <p>Welcome, Admin</p>
+            <p><a>Settings</a><a>Log Out</a></p>
+          </div>
+        </div>
+    </div>
+
+<div class="container">
+    <div class="row">
+         <form class="form-horizontal action-form newplayer" id="newuserDetails" action="newUserSignup" method="post" >
+
+            <fieldset class="form-content">
+                <!-- Address form -->
+         
+                <h3>Add User</h3>
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Email:<span class="mandatory-field">*</span></label>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <h6 class="error-email">This Email Already Exists.</h6>
+                        <input required name="email" id="email" type="email" placeholder="Email"
+                        class="input-xlarge form-control form-username" onblur="validateSignUp(this.value,'checkEmail')"/>
+                    </div> 
+                </div>
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Contact Number:<span class="mandatory-field">*</span></label>
+
+                    
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <h6 class="error-contact">This Contact Number Already Exists.</h6>
+                        <input type="text" name="contactnumber" id="contactnumber" class="input-xlarge form-control form-username" required  placeholder="Contact Number" pattern="[1-9]{1}[0-9]{9}" maxlength="10" onblur="validateSignUp(this.value,'checkNumber')"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">User Details:<span class="mandatory-field">*</span></label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        <input required name="firstName" id="firstName" type="text" placeholder="User's First Name*" class="input-xlarge form-control" />
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                        <input name="lastname" id="lastname" type="text" placeholder="User's Last Name"
+                        class="input-xlarge form-control" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Username:<span class="mandatory-field">*</span></label>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                        <h6 class="error-uname">This User Name Already Exists.</h6>
+
+                        <input type="text" name="username" id="username" class="input-xlarge form-control  form-username"  required placeholder="User Name" onblur="validateSignUp(this.value,'checkUname')" />
+                    </div>
+                </div>      
+
+                <div class="row">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Password:<span class="mandatory-field">*</span></label>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                         <input type="password" name="password" id="password" class="input-xlarge form-control form-username" required  placeholder="Password" />
+                    </div>
+                </div>
+
+                <div class="row">
+                  <input class="submitButton" type="submit" name="submitUser" id="submitUser" value="Add User" onclick="checkSignUpErrors()" />
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<footer class="footer-section">
+    <p>Copyright © 2018 SportsLens</p>
+</footer>
+
+</body>
+</html>

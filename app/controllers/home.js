@@ -10,6 +10,8 @@ var updateTournamentInsert = require('../models/updateTournamentInsert.js');
 var updatePlayerInsert = require('../models/updatePlayerInsert.js');
 var newMatchInsert = require('../models/newMatchInsert.js');
 var updateMatchInsert = require('../models/updateMatchInsert.js');
+var newUserInsert = require('../models/newUserInsert.js');
+
 exports.login = function(req, res) {
 		
     res.render('signup.ejs',  { serverMsg : "" });
@@ -18,10 +20,40 @@ exports.login = function(req, res) {
 
 exports.homePage = function(req, res) {
 		
-    res.render('homePage.ejs', {
+    res.render('homePage.ejs',  {});
+	 					
+}
+
+exports.newSignup = function(req, res) {
+		
+    res.render('newUserSignIn.ejs', {
 			
 	});
 	 					
+}
+
+exports.newUserSignup = function(req, res) {
+
+	pool.getConnection((err, connection) => {
+		connection.query(newUserInsert.buildQuery(req.body), (err, rows, fields) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and insert query");
+				console.log(err);
+				
+			} else {
+
+				console.log('user entered successfully');
+				res.render('redirectPage.ejs', { 
+					Message : "You Have Added New User Successfully!",
+					redirectRoute : "/newSignup"
+
+				});
+			}
+		});		
+	});		
+ //    res.render('newUserSignIn.ejs', {
+	// });				
 }
 
 exports.newTeam = function(req, res) {
@@ -51,7 +83,7 @@ exports.newTeam = function(req, res) {
 
 exports.newPlayer = function(req, res) {
 	pool.getConnection((err, connection) => {
-		function queryTeams(){
+		function queryTeams() {
 	      var defered = Q.defer();
 	      connection.query(queryStr.GET_TEAM_NAMES_CODES(),defered.makeNodeResolver());
 	      return defered.promise;
@@ -123,13 +155,13 @@ exports.newMatch = function(req, res) {
 
 	pool.getConnection((err, connection) => {
 		
-	    function queryTournament(){
+	    function queryTournament() {
 	      var defered = Q.defer();
 	      connection.query(queryStr.GET_TOURNAMENT_NAMES(),defered.makeNodeResolver());
 	      return defered.promise;
 	    } 
 
-	    function queryCountry(){
+	    function queryCountry() {
 	      var defered = Q.defer();
 	      connection.query(queryStr.GET_COUNTRIES(),defered.makeNodeResolver());
 	      return defered.promise;
@@ -166,9 +198,36 @@ exports.updateDetails = function(req, res) {
 }
 
 exports.accessControl = function(req, res) {
-    res.render('manageUsers.ejs', {			
-			
-	}); 					
+
+	pool.getConnection((err, connection) => {
+		
+	    function queryTournament() {
+	      var defered = Q.defer();
+	      connection.query(queryStr.GET_TOURNAMENT_NAMES(),defered.makeNodeResolver());
+	      return defered.promise;
+	    }
+
+	    function queryUserAccess(){
+	      var defered = Q.defer();
+	      connection.query(queryStr.GET_USER_ACCESS(),defered.makeNodeResolver());
+	      return defered.promise;
+	    }
+
+	    Q.all([queryTournament(), queryUserAccess()]).then((results) => {
+	      connection.release();
+	      if(err) {
+	      	console.log("err in fetching from DB.. "+err);
+	        res.end();
+	      }
+	      else {
+	      	console.log(JSON.stringify(results[0]));
+	      	res.render('manageUsers.ejs', {			
+				tournamentList:results[0],
+				usersList:results[1],
+			}); 
+	      }
+	    });
+	});	 					
 }
 
 exports.approveScore = function(req, res) {
@@ -232,6 +291,66 @@ exports.teamNameDuplication = function(req, res) {
 				console.log(err);
 				
 			} else {
+				res.send(result[0]);
+				
+			}
+		});		
+	});					
+}
+
+exports.checkEmailDuplication = function(req, res) {
+
+	var dataToTest = req.query.datatoValidate;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.CHECK_EMAIL_DUPLICATION(dataToTest), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+
+				res.send(result[0]);
+				
+			}
+		});		
+	});					
+}
+
+exports.checkNumberDuplication = function(req, res) {
+
+	var dataToTest = req.query.datatoValidate;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.CHECK_NUMBER_DUPLICATION(dataToTest), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+
+				res.send(result[0]);
+				
+			}
+		});		
+	});					
+}
+
+exports.checkUserNameDuplication = function(req, res) {
+
+	var dataToTest = req.query.datatoValidate;
+
+    pool.getConnection((err, connection) => {
+		connection.query(queryStr.CHECK_USERNAME_DUPLICATION(dataToTest), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and retrieve query");
+				console.log(err);
+				
+			} else {
+
 				res.send(result[0]);
 				
 			}
@@ -306,19 +425,34 @@ exports.addTournament = function(req, res) {
 
 exports.checkUser = function(req, res) {
 
-    var emailsent = req.body.email;
+    var usernamesent = req.body.username;
     var passwordsent = 	req.body.password;
+    console.log("in checkuser..."+usernamesent+"......\n......."+passwordsent);
 
-    console.log("session ids "+req.session.user_id);
+	pool.getConnection((err, connection) => {
+		connection.query(queryStr.CHECK_VALIDATE_EMAIL_PASSWORD(usernamesent), (err, result) => {
+			connection.release();
+			if(err) {
+				console.log("Error in connection and fetching user details query");
+				console.log(err);
+				
+			} else {
 
-    if(emailsent === "admin" && passwordsent === "admin" ) {
-    	req.session.user_id = emailsent;
-    	res.render('homePage.ejs', {} );
+				if(result[0] === undefined || result[0].decodedPW !== passwordsent) {
+			    	
+			    	res.render('signup.ejs', { serverMsg : "invalid" });
 
-    } else {
-    	res.render('signup.ejs', { serverMsg : "invalid" });
+			    } else {
+			    	req.session.user_id = usernamesent;
+			    	res.render('homePage.ejs', {} );
 
-    }
+			    }
+
+				//console.log(JSON.stringify(result[0].decodedPW));
+				
+			}
+		});		
+	});		
 }
 
 exports.updateTeam = function(req, res) {

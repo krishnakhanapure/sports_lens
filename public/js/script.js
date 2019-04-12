@@ -1,8 +1,42 @@
 var updateTeamName = "";
 let checkSecCall = false;
 
+var checkErrorCodes = () => {
+
+  if($('#teamName').hasClass('error-input-name')) {
+    $('#teamName').val('');
+    $('.error-name').hide();
+
+  }
+  else if($('#teamCode').hasClass('error-input')) {
+    $('#teamCode').val('');
+    $('.error-code').hide();
+
+  }
+
+}
+
+var checkSignUpErrors = () => {
+
+  if($('#email').hasClass('error-input')) {
+    $('#email').val('');
+    $('.error-email').hide();
+
+  }
+  else if($('#contactnumber').hasClass('error-input')) {
+    $('#contactnumber').val('');
+    $('.error-contact').hide();
+
+  }else if($('#username').hasClass('error-input')){
+    $('#username').val('');
+    $('.error-uname').hide();
+
+  }
+
+}
+
 function generateCode() {
-    $.get('/getTeamRandomCode', function(data){
+    $.get('/getTeamRandomCode', function(data) {
         console.log(data + JSON.stringify(data));
         $('#teamCode').val(data);
     });
@@ -28,6 +62,52 @@ function checkTeamCodeDuplication(val) {
         }
       }
     })
+}
+
+var validateSignUp = (val,controller) => {
+
+  $.ajax({
+      type: 'GET',
+      data: { datatoValidate : val },
+      url: '/'+controller,
+      success: function(data) {
+        console.log(data);
+        var key = Object.keys(data)[0];
+
+        if(controller === "checkEmail") {
+          if(data[key] === 0) {
+            $('#email').addClass('error-input');
+            $('.error-email').show();
+
+          }else {
+            $('#email').removeClass('error-input');
+            $('.error-email').hide();
+
+          }
+        }else if(controller === "checkNumber") {
+          if(data[key] === 0) {
+            $('#contactnumber').addClass('error-input');
+            $('.error-contact').show();
+
+          }else {
+            $('#contactnumber').removeClass('error-input');
+            $('.error-contact').hide();
+
+        }
+        
+      }else {
+        if(data[key] === 0) {
+            $('#username').addClass('error-input');
+            $('.error-uname').show();
+
+          }else {
+            $('#username').removeClass('error-input');
+            $('.error-uname').hide();
+
+        }
+      }
+    }
+  })
 }
 
 function checkTeamNameDuplication(val,update) {
@@ -458,7 +538,7 @@ var checkedValidation = (ele) => {
     return;
   }
 
-  if(ele.hasAttribute("vcapradio")){
+  if(ele.hasAttribute("vcapradio")) {
     attr = ele.getAttribute("vcapradio");
     $('input[capRadio="'+attr+'"]'). prop("checked", false);
     

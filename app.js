@@ -31,10 +31,8 @@ app.use(session({
   secret: 'user_login'
 }));
 
-
 // routes ======================================================================
 require('./config/routes.js')(app); // load our routes and pass in our app and fully configured passport
-
 
 //launch ======================================================================
 app.listen(port);

@@ -37,6 +37,15 @@ module.exports = {
 		return sqlsp;
 	},
 
+	'INSERT_NEW_USER': function (formData) {
+
+		let sqlsp = `CALL proc_user_entry("`+formData[0]+`","`+formData[1]+`","`+formData[2]+`","`+formData[3]+`","`+formData[4]+`","`+formData[5]+`")`;
+
+		console.log("INSERT_NEW_USER call statement... "+sqlsp);
+
+		return sqlsp;
+	},
+
 	'UPDATE_TEAM_VALUES': function(formData) {
 
 		let sqlsp = `CALL proc_upd_team("`+formData[0]+`","`+formData[1]+`","`+formData[2]+`","`+formData[3]+`","`+formData[4]+`","`+formData[5]+`","`+formData[6]+`","`+formData[7]+`","`+formData[8]+`","`+formData[9]+`","`+formData[10]+`")`;
@@ -165,6 +174,11 @@ module.exports = {
 		return sqlQuery;
 	},
 
+	'GET_USER_ACCESS': function(tournamentCode) {
+		let sqlQuery = "select * from user_access";
+		return sqlQuery;
+	},
+
 	'CHECK_TEAM_CODE_DUPLICATION': function(codeToTest) {
 
 		let sqlsp = `SELECT func_chk_team_code("`+codeToTest+`")`;
@@ -174,6 +188,30 @@ module.exports = {
 	'CHECK_TEAM_NAME_DUPLICATION': function(nameToTest) {
 
 		let sqlsp = `SELECT func_chk_team_name("`+nameToTest+`")`;
+		return sqlsp;
+	},
+
+	'CHECK_VALIDATE_EMAIL_PASSWORD': function(usernamesent) {
+
+		let sqlsp = "SELECT CAST(AES_DECRYPT(password,'KEY1') AS CHAR) AS decodedPW from user_info WHERE username = '"+usernamesent+"'";
+		return sqlsp;
+	},
+
+	'CHECK_EMAIL_DUPLICATION': function(emailsent) {
+
+		let sqlsp = `SELECT func_chk_email_id("`+emailsent+`")`;
+		return sqlsp;
+	},
+
+	'CHECK_NUMBER_DUPLICATION': function(numsent) {
+
+		let sqlsp = `SELECT func_chk_mobile_num("`+numsent+`")`;
+		return sqlsp;
+	},
+
+	'CHECK_USERNAME_DUPLICATION': function(unamesent) {
+
+		let sqlsp = `SELECT func_chk_username("`+unamesent+`")`;
 		return sqlsp;
 	}
 

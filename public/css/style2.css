@@ -233,3 +233,28 @@ table.player-list td, table.player-list th {
 .update-selection {
   width: 75%;
   margin: 0 auto; }
+
+.add-user-section {
+  float: right;
+  padding: 0; }
+
+.add-user-button {
+  float: right;
+  margin-bottom: 10px;
+  padding: 6px;
+  font-size: 13px;
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745; }
+
+.error-block {
+  font-weight: bold;
+  color: #EB172D; }
+
+.error-email, .error-contact, .error-uname {
+  display: none;
+  color: #dc3545; }
+
+.error-input, .error-input-name {
+  border: 1px solid red;
+  box-shadow: 0px 0px 5px red inset; }
