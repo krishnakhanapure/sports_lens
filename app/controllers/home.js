@@ -220,7 +220,7 @@ exports.accessControl = function(req, res) {
 	        res.end();
 	      }
 	      else {
-	      	console.log(JSON.stringify(results[0]));
+	      	console.log(JSON.stringify(results[1]));
 	      	res.render('manageUsers.ejs', {			
 				tournamentList:results[0],
 				usersList:results[1],

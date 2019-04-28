@@ -6,6 +6,7 @@
     "start": "NODE_ENV=qa nodemon app",
     "scss": "node-sass --watch public/scss -o public/css"
   },
+  
   "dependencies": {
     "async": "latest",
     "basic-auth-connect": "latest",

@@ -36,6 +36,9 @@ $error-color: #dc3545;
 
         body {
             background-color: $primary-background-color;
+            background-image: url("/images/app_bg.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
         .form-control {

@@ -17,7 +17,10 @@ input[type="text"], input[type="number"], select {
   height: 40px !important; }
 
 body {
-  background-color: #EEEFF1; }
+  background-color: #EEEFF1;
+  background-image: url("/images/app_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; }
 
 .form-control {
   width: 70%; }

@@ -174,8 +174,8 @@ module.exports = {
 		return sqlQuery;
 	},
 
-	'GET_USER_ACCESS': function(tournamentCode) {
-		let sqlQuery = "select * from user_access";
+	'GET_USER_ACCESS': function() {
+		let sqlQuery = "SELECT ui.username,ui.user_id,ua.tournament_id,ua.admin_flag,ua.scoring_flag,ua.reports_flag FROM user_info ui, user_access ua WHERE ui.user_id = ua.user_id;";
 		return sqlQuery;
 	},
 

@@ -203,6 +203,11 @@ img { max-width: 100%; width: 70%;}
   font-weight: bold; }
 
 .body-background {
-	background-image: url("/images/login_bg.png");
-	background-position: top;
+	background-image: url("/images/app_bg.jpg");
+	background-size: 100%;
+}
+
+body {
+	background-image: url("/images/app_bg.jpg");
+	background-size: 100%;
 }
