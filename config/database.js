@@ -7,10 +7,10 @@
 // });
 
 var pool = mysql.createPool ({
-  host    : 'id1fu4mq3dmba33.c3nvzhyk44tg.us-east-1.rds.amazonaws.com',
+  host    : 'ec2-35-154-250-73.ap-south-1.compute.amazonaws.com',
   Port	  :  3306,
-  user    : 'ipl',
-  password: 'ipl123456',
+  user    : 'root',
+  password: 'Infotech#321',
   database: 'dev_madhi'
 });
  
