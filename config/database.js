@@ -11,7 +11,7 @@ var pool = mysql.createPool ({
   Port	  :  3306,
   user    : 'root',
   password: 'Infotech#321',
-  database: 'dev_madhi'
+  database: 'inittwo'
 });
  
 module.exports = pool;
