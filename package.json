@@ -19,7 +19,7 @@
     "dateformat": "latest",
     "debug": "~2.2.0",
     "ejs": "~2.3.3",
-    "express": "~4.13.1",
+    "express": "~4.17.3",
     "express-mailer": "^0.3.0",
     "express-session": "latest",
     "fs-extra": "latest",
